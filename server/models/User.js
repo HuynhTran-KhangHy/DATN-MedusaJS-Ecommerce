@@ -9,16 +9,19 @@ const User = sequelize.define('User', {
   },
   name: {
     type: DataTypes.STRING(100),
-    allowNull: false,
+    allowNull: true, // Cho phép null vì đôi khi đăng ký qua email chưa cần nhập tên ngay
   },
   email: {
     type: DataTypes.STRING(255),
     allowNull: false,
     unique: true,
+    validate: {
+      isEmail: true,
+    },
   },
   password: {
     type: DataTypes.STRING(255),
-    allowNull: true,
+    allowNull: true, // Cho phép null cho người dùng đăng nhập bằng Google
   },
   googleId: {
     type: DataTypes.STRING(255),
@@ -36,6 +39,18 @@ const User = sequelize.define('User', {
   status: {
     type: DataTypes.TINYINT(1),
     defaultValue: 1,
+  },
+  otp: {
+    type: DataTypes.STRING(10),
+    allowNull: true,
+  },
+  otp_expiry: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  is_verified: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   }
 }, {
   tableName: 'users',
