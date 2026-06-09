@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import AuthSuccess from './pages/AuthSuccess';
+import Checkout from './pages/Checkout';
 
 // Admin Imports
 import AdminLayout from './layouts/AdminLayout';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/auth-success" element={<AuthSuccess />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Route>
 
         {/* Admin Routes */}

@@ -4,8 +4,10 @@ require('dotenv').config();
 const { connectDB, sequelize } = require('./db');
 const passport = require('./config/passport');
 const authRoutes = require('./routes/auth.routes');
+const orderRoutes = require('./routes/order.routes');
 const User = require('./models/User');
-
+const Order = require('./models/Order');
+const OrderItem = require('./models/OrderItem');
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -14,6 +16,7 @@ app.use(express.json());
 app.use(passport.initialize());
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/orders', orderRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'API đang chạy!' });

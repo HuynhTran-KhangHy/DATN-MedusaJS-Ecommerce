@@ -1,5 +1,5 @@
 /* ===== SHOPFLOW - MAIN STYLESHEET ===== */
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
   --accent: #FF6B00;
@@ -14,7 +14,7 @@
   --bg: #F8F8F6;
   --success: #22C55E;
   --danger: #EF4444;
-  --font-display: 'Oswald', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
   --font-body: 'Inter', sans-serif;
   --radius: 4px;
   --radius-lg: 10px;
