@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const OrderItem = require('../models/OrderItem');
 const { sequelize } = require('../db');
+const { orderQueue } = require('../jobs/queue');
 
 const createOrder = async (req, res) => {
   const t = await sequelize.transaction();
@@ -58,8 +59,14 @@ const createOrder = async (req, res) => {
 
     await t.commit();
 
+    // Push job to queue for background processing (email, inventory, etc.)
+    await orderQueue.add('processOrder', { orderId: newOrder.id }, {
+      attempts: 3, // Retry up to 3 times if fails
+      backoff: { type: 'exponential', delay: 2000 } // Wait 2s, 4s, 8s between retries
+    });
+
     res.status(201).json({
-      message: 'Đặt hàng thành công!',
+      message: 'Đặt hàng thành công! Đơn hàng đang được xử lý.',
       orderId: newOrder.id
     });
 

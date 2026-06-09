@@ -8,6 +8,10 @@ const orderRoutes = require('./routes/order.routes');
 const User = require('./models/User');
 const Order = require('./models/Order');
 const OrderItem = require('./models/OrderItem');
+
+// Initialize Queue Worker
+require('./jobs/queue');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
