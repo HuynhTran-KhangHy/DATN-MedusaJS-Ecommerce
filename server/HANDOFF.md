@@ -46,6 +46,25 @@ Hệ thống xác thực người dùng đã được triển khai hoàn tất v
     - Server: `cd server` -> `npm run dev`
     - Client: `cd client` -> `npm run dev`
 
+## PHẦN 3: TRANG DANH SÁCH SẢN PHẨM (PRODUCT LIST PAGE)
+
+### 1. Backend (API Lọc & Phân trang)
+- **Tính năng lọc:** Hỗ trợ lọc theo `categoryId`, `minPrice`, và `maxPrice`.
+- **Phân trang:** Triển khai `page` và `limit` giúp tối ưu hóa tốc độ tải dữ liệu lớn.
+- **Dữ liệu trả về:** JSON bao gồm mảng sản phẩm kèm theo metadata: `totalItems`, `totalPages`, `currentPage`.
+
+### 2. Frontend (Giao diện lọc & Phân trang)
+- **Sidebar Lọc:** Thiết kế sidebar cố định (Sticky) cho phép lọc nhanh theo danh mục và giá tiền.
+- **Thanh Phân trang:** Hỗ trợ điều hướng qua lại giữa các trang sản phẩm.
+- **UX/UI:** 
+    - Sử dụng **Skeleton Loading** để tạo cảm giác tải trang mượt mà.
+    - Cơ chế **Debounce** khi nhập giá tiền để tránh gửi yêu cầu API liên tục.
+    - Tự động cuộn lên đầu trang (Scroll to top) khi người dùng chuyển trang.
+
+### 3. Hướng dẫn chạy & Test
+- Truy cập `/products` trên trình duyệt.
+- Thử kết hợp nhiều bộ lọc cùng lúc (vd: Laptop + giá từ 20tr).
+
 ---
 *Cập nhật ngày: 10/06/2026*
 *Người thực hiện: Antigravity AI*
