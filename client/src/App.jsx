@@ -5,6 +5,12 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import AuthSuccess from './pages/AuthSuccess';
 
+// Seller Pages
+import SellerLayout from './layouts/SellerLayout';
+import ProductList from './pages/seller/ProductList';
+import AddProduct from './pages/seller/AddProduct';
+import EditProduct from './pages/seller/EditProduct';
+
 // Import Global CSS
 import './assets/css/client/style.css';
 
@@ -17,6 +23,14 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
           <Route path="/auth-success" element={<AuthSuccess />} />
+        </Route>
+
+        {/* Seller Routes */}
+        <Route path="/seller" element={<SellerLayout />}>
+          <Route index element={<ProductList />} />
+          <Route path="products" element={<ProductList />} />
+          <Route path="products/add" element={<AddProduct />} />
+          <Route path="products/edit/:id" element={<EditProduct />} />
         </Route>
       </Routes>
     </BrowserRouter>

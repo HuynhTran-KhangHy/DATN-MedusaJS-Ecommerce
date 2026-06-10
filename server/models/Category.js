@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../db');
 
-const User = sequelize.define('User', {
+const Category = sequelize.define('Category', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -11,31 +11,17 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
-  email: {
-    type: DataTypes.STRING(255),
-    allowNull: false,
-    unique: true,
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
-  password: {
+  image: {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
-  googleId: {
-    type: DataTypes.STRING(255),
+  slug: {
+    type: DataTypes.STRING(100),
     allowNull: true,
-    unique: true,
-  },
-  avatar: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
-  role: {
-    type: DataTypes.TINYINT(1),
-    defaultValue: 0,
-  },
-  status: {
-    type: DataTypes.TINYINT(1),
-    defaultValue: 1,
   },
   created_at: {
     type: DataTypes.DATE,
@@ -46,9 +32,9 @@ const User = sequelize.define('User', {
     defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
   }
 }, {
-  tableName: 'Users',
+  tableName: 'Categories',
   timestamps: true,
   underscored: true,
 });
 
-module.exports = User;
+module.exports = Category;

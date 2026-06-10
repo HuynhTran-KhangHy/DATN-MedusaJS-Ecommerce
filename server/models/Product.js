@@ -1,41 +1,48 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../db');
 
-const User = sequelize.define('User', {
+const Product = sequelize.define('Product', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
   name: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-  },
-  email: {
     type: DataTypes.STRING(255),
     allowNull: false,
-    unique: true,
   },
-  password: {
-    type: DataTypes.STRING(255),
+  description: {
+    type: DataTypes.TEXT,
     allowNull: true,
   },
-  googleId: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-    unique: true,
-  },
-  avatar: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
-  role: {
-    type: DataTypes.TINYINT(1),
+  base_price: {
+    type: DataTypes.DECIMAL(15, 2),
+    allowNull: false,
     defaultValue: 0,
+  },
+  category_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'Categories',
+      key: 'id'
+    }
+  },
+  seller_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: 'Users',
+      key: 'id'
+    }
   },
   status: {
     type: DataTypes.TINYINT(1),
-    defaultValue: 1,
+    defaultValue: 1, // 1: Active, 0: Inactive
+  },
+  slug: {
+    type: DataTypes.STRING(255),
+    allowNull: true,
   },
   created_at: {
     type: DataTypes.DATE,
@@ -46,9 +53,9 @@ const User = sequelize.define('User', {
     defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
   }
 }, {
-  tableName: 'Users',
+  tableName: 'Products',
   timestamps: true,
   underscored: true,
 });
 
-module.exports = User;
+module.exports = Product;
