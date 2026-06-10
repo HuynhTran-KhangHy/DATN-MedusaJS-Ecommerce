@@ -65,6 +65,22 @@ Hệ thống xác thực người dùng đã được triển khai hoàn tất v
 - Truy cập `/products` trên trình duyệt.
 - Thử kết hợp nhiều bộ lọc cùng lúc (vd: Laptop + giá từ 20tr).
 
+## PHẦN 4: TRANG CHI TIẾT SẢN PHẨM & BIẾN THỂ (PRODUCT DETAIL & VARIANTS)
+
+### 1. Backend (Cấu trúc Variant)
+- **Model mới:** `ProductVariant` lưu trữ thông tin riêng biệt cho từng tổ hợp thuộc tính.
+- **Thuộc tính:** Hỗ trợ `color`, `size`, `price`, `stock`, và `image` riêng cho từng biến thể.
+- **API:** Endpoint `GET /api/products/:id` trả về đầy đủ thông tin sản phẩm cùng toàn bộ các biến thể liên quan.
+
+### 2. Frontend (Logic chọn hàng)
+- **Lựa chọn biến thể:** Giao diện cho phép chọn Màu/Size bằng các nút bấm (Button-style selectors).
+- **Cập nhật Dynamic:** Tự động tìm kiếm biến thể phù hợp để cập nhật Giá và Ảnh hiển thị ngay lập tức.
+- **Quản lý kho hàng:** Hiển thị số lượng còn lại và vô hiệu hóa nút mua hàng khi hết hàng (Out of stock).
+
+### 3. Hướng dẫn chạy & Test
+- Mở chi tiết sản phẩm iPhone 15 hoặc Samsung S24 trong dữ liệu mẫu.
+- Thử thay đổi các lựa chọn màu sắc/dung lượng để kiểm tra sự thay đổi của giá và hình ảnh.
+
 ---
 *Cập nhật ngày: 10/06/2026*
 *Người thực hiện: Antigravity AI*

@@ -58,4 +58,24 @@ router.get('/featured', async (req, res) => {
   }
 });
 
+// Lấy chi tiết 1 sản phẩm kèm các biến thể (Variants)
+router.get('/:id', async (req, res) => {
+  try {
+    const product = await Product.findByPk(req.params.id, {
+      include: [
+        { model: Category },
+        { model: ProductVariant, as: 'variants' }
+      ]
+    });
+
+    if (!product) {
+      return res.status(404).json({ message: 'Sản phẩm không tồn tại.' });
+    }
+
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi server', error: error.message });
+  }
+});
+
 module.exports = router;
