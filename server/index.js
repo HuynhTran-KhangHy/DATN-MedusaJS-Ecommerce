@@ -8,6 +8,9 @@ const orderRoutes = require('./routes/order.routes');
 const User = require('./models/User');
 const Order = require('./models/Order');
 const OrderItem = require('./models/OrderItem');
+const ShippingAddress = require('./models/ShippingAddress');
+const Product = require('./models/Product');
+const ProductVariant = require('./models/ProductVariant');
 
 // Initialize Queue Worker
 require('./jobs/queue');

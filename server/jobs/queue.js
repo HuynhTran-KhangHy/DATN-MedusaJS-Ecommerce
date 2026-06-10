@@ -1,5 +1,6 @@
 const { Queue, Worker } = require('bullmq');
 const IORedis = require('ioredis');
+const Order = require('../models/Order');
 require('dotenv').config();
 
 // Redis connection configuration
@@ -22,13 +23,13 @@ const orderWorker = new Worker('orderQueue', async job => {
     const { orderId } = job.data;
     console.log(`[Queue] Bắt đầu xử lý đơn hàng #${orderId}`);
     
-    // Giả lập thời gian xử lý các tác vụ nặng (như gửi email, trừ tồn kho, etc.)
+    // Giả lập thời gian xử lý các tác vụ nặng (như gửi email, gọi API đối tác vận chuyển)
     await new Promise(resolve => setTimeout(resolve, 3000));
     
-    // TODO: Viết logic trừ tồn kho sản phẩm tại đây
-    // TODO: Viết logic gửi email xác nhận tại đây
-
-    console.log(`[Queue] ✅ Xử lý xong đơn hàng #${orderId}`);
+    // Update order status to processing
+    await Order.update({ status: 'processing' }, { where: { id: orderId } });
+    
+    console.log(`[Queue] ✅ Xử lý xong đơn hàng #${orderId}, trạng thái: processing`);
     return { status: 'success', orderId };
   }
 }, { connection });

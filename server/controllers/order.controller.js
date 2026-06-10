@@ -1,5 +1,7 @@
 const Order = require('../models/Order');
 const OrderItem = require('../models/OrderItem');
+const ShippingAddress = require('../models/ShippingAddress');
+const ProductVariant = require('../models/ProductVariant');
 const { sequelize } = require('../db');
 const { orderQueue } = require('../jobs/queue');
 
@@ -30,32 +32,46 @@ const createOrder = async (req, res) => {
 
     // Create Order
     const newOrder = await Order.create({
-      fullName,
-      phone,
       email,
-      province,
-      district,
-      ward,
-      address,
       note,
       paymentMethod,
+      paymentStatus: 'unpaid',
       shippingFee,
       subtotal,
       total,
       status: 'pending'
     }, { transaction: t });
 
-    // Create Order Items
-    const orderItemsData = items.map(item => ({
+    // Create Shipping Address
+    await ShippingAddress.create({
       orderId: newOrder.id,
-      productId: item.id,
-      productName: item.name,
-      variant: item.variant,
-      price: item.price,
-      quantity: item.quantity
-    }));
+      fullName,
+      phone,
+      province,
+      district,
+      ward,
+      address
+    }, { transaction: t });
 
-    await OrderItem.bulkCreate(orderItemsData, { transaction: t });
+    // Create Order Items & Deduct Inventory
+    for (const item of items) {
+      // Create Order Item
+      await OrderItem.create({
+        orderId: newOrder.id,
+        productId: item.id, // Assuming item.id is variantId or productId
+        productName: item.name,
+        variant: item.variant,
+        price: item.price,
+        quantity: item.quantity
+      }, { transaction: t });
+
+      // Deduct inventory
+      await ProductVariant.decrement('inventoryQuantity', {
+        by: item.quantity,
+        where: { id: item.id },
+        transaction: t
+      });
+    }
 
     await t.commit();
 

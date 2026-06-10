@@ -7,33 +7,9 @@ const Order = sequelize.define('Order', {
     primaryKey: true,
     autoIncrement: true
   },
-  fullName: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  phone: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
   email: {
     type: DataTypes.STRING,
     allowNull: true
-  },
-  province: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  district: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  ward: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  address: {
-    type: DataTypes.STRING,
-    allowNull: false
   },
   note: {
     type: DataTypes.TEXT,
@@ -42,6 +18,10 @@ const Order = sequelize.define('Order', {
   paymentMethod: {
     type: DataTypes.STRING,
     defaultValue: 'cod'
+  },
+  paymentStatus: {
+    type: DataTypes.STRING,
+    defaultValue: 'unpaid' // unpaid, paid, failed
   },
   shippingFee: {
     type: DataTypes.INTEGER,
