@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
+import Products from './pages/Products';
+import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
-
-// Import Global CSS
-import './assets/css/client/style.css';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -12,8 +12,10 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          {/* We will add more routes here later */}
+          <Route path="products" element={<Products />} />
+          <Route path="products/:id" element={<ProductDetail />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
     </BrowserRouter>
