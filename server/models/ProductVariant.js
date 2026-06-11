@@ -1,43 +1,44 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../db');
-const Product = require('./Product');
-
 const ProductVariant = sequelize.define('ProductVariant', {
   id: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
-    autoIncrement: true
   },
-  productId: {
+  product_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Product,
+      model: 'Products',
       key: 'id'
     }
   },
-  title: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
   sku: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING(100),
+    allowNull: true,
+    unique: true,
+  },
+  variant_name: {
+    type: DataTypes.STRING(255),
+    allowNull: false, // e.g., "iPhone 15 - Black - 256GB"
   },
   price: {
-    type: DataTypes.INTEGER,
-    allowNull: false
+    type: DataTypes.DECIMAL(15, 2),
+    allowNull: false,
   },
-  inventoryQuantity: {
+  stock: {
     type: DataTypes.INTEGER,
-    defaultValue: 0
+    allowNull: false,
+    defaultValue: 0,
+  },
+  attributes: {
+    type: DataTypes.JSON, // Stores { color: "Black", ram: "8GB", storage: "256GB" }
+    allowNull: true,
   }
 }, {
   tableName: 'product_variants',
-  timestamps: true
+  timestamps: true,
+  underscored: true,
 });
-
-// Associations
-Product.hasMany(ProductVariant, { foreignKey: 'productId', as: 'variants' });
-ProductVariant.belongsTo(Product, { foreignKey: 'productId' });
-
 module.exports = ProductVariant;

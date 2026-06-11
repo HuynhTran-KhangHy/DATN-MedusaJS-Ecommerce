@@ -7,8 +7,6 @@ const User = sequelize.define('User', {
     autoIncrement: true,
     primaryKey: true,
   },
-  name: {
-    type: DataTypes.STRING(100),
     allowNull: true, // Cho phép null vì đôi khi đăng ký qua email chưa cần nhập tên ngay
   },
   email: {
@@ -51,9 +49,17 @@ const User = sequelize.define('User', {
   is_verified: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
+  },
+  created_at: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+  },
+  updated_at: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
   }
 }, {
-  tableName: 'users',
+  tableName: 'Users',
   timestamps: true,
   underscored: true,
 });

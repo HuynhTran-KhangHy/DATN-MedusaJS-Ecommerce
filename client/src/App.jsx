@@ -16,6 +16,12 @@ import Customers from './pages/admin/Customers';
 import Users from './pages/admin/Users';
 import Settings from './pages/admin/Settings';
 
+// Seller Pages
+import SellerLayout from './layouts/SellerLayout';
+import ProductList from './pages/seller/ProductList';
+import AddProduct from './pages/seller/AddProduct';
+import EditProduct from './pages/seller/EditProduct';
+
 // Import Global CSS
 import './assets/css/client/style.css';
 
@@ -41,6 +47,14 @@ function App() {
           <Route path="customers" element={<Customers />} />
           <Route path="users" element={<Users />} />
           <Route path="settings" element={<Settings />} />
+        </Route>
+
+        {/* Seller Routes */}
+        <Route path="/seller" element={<SellerLayout />}>
+          <Route index element={<ProductList />} />
+          <Route path="products" element={<ProductList />} />
+          <Route path="products/add" element={<AddProduct />} />
+          <Route path="products/edit/:id" element={<EditProduct />} />
         </Route>
       </Routes>
     </BrowserRouter>
