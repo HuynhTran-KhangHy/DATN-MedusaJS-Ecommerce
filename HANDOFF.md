@@ -19,7 +19,7 @@ Dự án được chia thành 2 phần độc lập (Monorepo cơ bản):
 ### Frontend (`/client`)
 - **Công nghệ:** React.js, Vite, React Router DOM.
 - **Phong cách thiết kế:** 
-  - Giao diện Client được mô phỏng từ template tĩnh (HTML/CSS), sử dụng font **Oswald** (Heading) và **Inter** (Body) nhằm tối ưu hoá tiếng Việt.
+  - Giao diện Client được mô phỏng từ template tĩnh (HTML/CSS), sử dụng font **Montserrat** (Heading) và **Inter** (Body) nhằm tối ưu hoá tiếng Việt.
   - Giao diện Admin được thiết kế hoàn toàn mới theo phong cách **MedusaJS Admin** (tối giản, chuyên nghiệp, hỗ trợ responsive).
 - **Cấu trúc thư mục `/client/src`:**
   - `assets/css/`: Chứa `client/style.css` (CSS gốc của ShopFlow) và `admin/admin-style.css` (CSS Design System cho Admin).
@@ -79,10 +79,13 @@ Dự án được chia thành 2 phần độc lập (Monorepo cơ bản):
 
 - [x] Thiết lập cấu trúc Frontend bằng Vite và cấu hình React Router.
 - [x] Chuyển đổi toàn bộ HTML/CSS tĩnh của trang **Trang chủ** và **Giỏ hàng** sang component React.
-- [x] Sửa lỗi font chữ, chuyển sang dùng `Oswald` và `Inter` để không bị lỗi dấu tiếng Việt, fix lỗi tràn chữ (line-height).
+- [x] Sửa lỗi font chữ, chuyển sang dùng `Montserrat` và `Inter` để không bị lỗi dấu tiếng Việt, fix lỗi tràn chữ (line-height).
 - [x] Thiết kế và xây dựng trọn bộ UI **Admin Dashboard** (Sidebar thu gọn, Navbar, Breadcrumb, Boilerplate cho 6 modules).
 - [x] Khởi tạo backend Node.js.
 - [x] Kết nối backend với MySQL Hosting thành công. Xử lý triệt để lỗi `ER_ACCESS_DENIED_ERROR` cho môi trường clone của team.
+- [x] **[Trần Hoàng Nguyện]** Xây dựng UI trang Checkout, tích hợp gọi API Giao Hàng Nhanh (GHN) lấy danh sách địa giới hành chính và tính phí vận chuyển theo thời gian thực.
+- [x] **[Trần Hoàng Nguyện]** Thiết kế Model `Order`, `OrderItem` và tạo API `POST /api/orders` xử lý đặt hàng an toàn với transaction.
+- [x] **[Trần Hoàng Nguyện]** Khởi tạo hệ thống Hàng đợi (Queue) bằng `BullMQ` và `Redis` (Upstash) để xử lý `ProcessOrderJob` dưới background.
 
 ---
 
@@ -91,7 +94,7 @@ Dự án được chia thành 2 phần độc lập (Monorepo cơ bản):
 Để hoàn thiện dự án, dưới đây là các công việc mà team cần thực hiện trong các sprint tới:
 
 ### Về phía Frontend (Client UI)
-1. Cắt tiếp các trang HTML còn lại sang React Component (Ví dụ: `Products.jsx` - Danh sách sản phẩm, `ProductDetail.jsx` - Chi tiết, `Checkout.jsx` - Thanh toán).
+1. Cắt tiếp các trang HTML còn lại sang React Component (Ví dụ: `Products.jsx` - Danh sách sản phẩm, `ProductDetail.jsx` - Chi tiết).
 2. Xây dựng logic State Management (sử dụng Context API hoặc Redux) để quản lý dữ liệu **Giỏ hàng (Cart)** và **Tài khoản (User)**.
 
 ### Về phía Backend
@@ -99,7 +102,7 @@ Dự án được chia thành 2 phần độc lập (Monorepo cơ bản):
 2. **Xây dựng API RESTful:**
    - Auth APIs (Đăng nhập, Đăng ký, JWT).
    - Product APIs (Lọc, tìm kiếm, phân trang).
-   - Order APIs (Tạo đơn hàng, tích hợp thanh toán).
+   - Order APIs (Tích hợp cổng thanh toán MoMo / ZaloPay).
 3. **Kết nối API (Integration):** Dùng `axios` (đã có bên frontend) để gọi dữ liệu thật từ Backend đổ lên giao diện Client và Admin thay vì dùng dữ liệu giả (Mock data).
 
 ---

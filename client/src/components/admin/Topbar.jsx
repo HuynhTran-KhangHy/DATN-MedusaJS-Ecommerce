@@ -20,6 +20,10 @@ const Topbar = () => {
       </div>
       
       <div className="flex items-center gap-4">
+        <Link to="/" className="text-sm" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--admin-text-main)', textDecoration: 'none', fontWeight: 500 }}>
+          <i className="bi bi-shop"></i>
+          Xem cửa hàng
+        </Link>
         <button className="btn-icon" style={{width: 32, height: 32}}>
           <i className="bi bi-bell"></i>
         </button>
