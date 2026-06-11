@@ -1,15 +1,18 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
+import Products from './pages/Products';
+import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import AuthSuccess from './pages/AuthSuccess';
 import Checkout from './pages/Checkout';
+import Profile from './pages/Profile';
 
 // Admin Imports
 import AdminLayout from './layouts/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
-import Products from './pages/admin/Products';
+import AdminProducts from './pages/admin/Products';
 import Orders from './pages/admin/Orders';
 import Categories from './pages/admin/Categories';
 import Customers from './pages/admin/Customers';
@@ -32,17 +35,20 @@ function App() {
         {/* Client Routes */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/auth-success" element={<AuthSuccess />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="products" element={<Products />} />
+          <Route path="products/:id" element={<ProductDetail />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="login" element={<Login />} />
+          <Route path="auth-success" element={<AuthSuccess />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="products" element={<Products />} />
+          <Route path="products" element={<AdminProducts />} />
           <Route path="categories" element={<Categories />} />
           <Route path="customers" element={<Customers />} />
           <Route path="users" element={<Users />} />

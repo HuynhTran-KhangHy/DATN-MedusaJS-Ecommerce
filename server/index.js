@@ -8,6 +8,9 @@ require('./models');
 const passport = require('./config/passport');
 const authRoutes = require('./routes/auth.routes');
 const orderRoutes = require('./routes/order.routes');
+const categoryRoutes = require('./routes/category.routes');
+const productRoutes = require('./routes/product.routes');
+const seedData = require('./seed');
 
 // Initialize Queue Worker
 require('./jobs/queue');
@@ -22,8 +25,8 @@ app.use(passport.initialize());
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/products', require('./routes/product.routes'));
-app.use('/api/categories', require('./routes/category.routes'));
+app.use('/api/products', productRoutes);
+app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
 
 app.get('/', (req, res) => {
@@ -37,7 +40,8 @@ app.listen(PORT, async () => {
   // Đồng bộ database
   try {
     await sequelize.sync({ alter: true });
-    console.log('Database đã được đồng bộ!');
+    await seedData(); // Khởi tạo dữ liệu mẫu
+    console.log('Database đã được đồng bộ và seed dữ liệu!');
   } catch (error) {
     console.error('Lỗi đồng bộ database:', error);
   }

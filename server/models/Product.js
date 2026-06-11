@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../db');
-
 const Product = sequelize.define('Product', {
   id: {
     type: DataTypes.INTEGER,
@@ -19,6 +18,14 @@ const Product = sequelize.define('Product', {
     type: DataTypes.DECIMAL(15, 2),
     allowNull: false,
     defaultValue: 0,
+  },
+  image: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  is_featured: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   },
   category_id: {
     type: DataTypes.INTEGER,
@@ -57,5 +64,4 @@ const Product = sequelize.define('Product', {
   timestamps: true,
   underscored: true,
 });
-
 module.exports = Product;
