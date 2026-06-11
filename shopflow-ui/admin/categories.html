@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFlow Admin – Danh Mục</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/admin/admin.css" />
+</head>
+<body>
+
+<aside class="admin-sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-text">Shop<span>Flow</span></div>
+    <div class="sidebar-logo-sub">Admin Panel</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">Tổng quan</div>
+    <a href="dashboard.html" class="sidebar-link"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+    <a href="#" class="sidebar-link"><i class="bi bi-graph-up-arrow"></i> Thống kê</a>
+    <div class="sidebar-section-label">Quản lý</div>
+    <a href="products.html" class="sidebar-link"><i class="bi bi-box-seam"></i> Sản phẩm</a>
+    <a href="orders.html" class="sidebar-link"><i class="bi bi-receipt"></i> Đơn hàng <span class="badge-count">12</span></a>
+    <a href="categories.html" class="sidebar-link active"><i class="bi bi-folder2"></i> Danh mục</a>
+    <a href="customers.html" class="sidebar-link"><i class="bi bi-people"></i> Khách hàng</a>
+    <a href="coupons.html" class="sidebar-link"><i class="bi bi-tag"></i> Mã giảm giá</a>
+    <div class="sidebar-section-label">Vận hành</div>
+    <a href="#" class="sidebar-link"><i class="bi bi-truck"></i> Vận chuyển</a>
+    <a href="#" class="sidebar-link"><i class="bi bi-credit-card"></i> Thanh toán</a>
+    <a href="#" class="sidebar-link"><i class="bi bi-bell"></i> Thông báo <span class="badge-count">3</span></a>
+    <div class="sidebar-section-label">Hệ thống</div>
+    <a href="#" class="sidebar-link"><i class="bi bi-gear"></i> Cài đặt</a>
+    <a href="../index.html" class="sidebar-link"><i class="bi bi-arrow-left"></i> Về trang Client</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">AD</div>
+      <div><div class="sidebar-user-name">Admin</div><div class="sidebar-user-role">Super Admin</div></div>
+      <a href="../login.html" class="sidebar-logout-link"><i class="bi bi-box-arrow-right"></i></a>
+    </div>
+  </div>
+</aside>
+
+<main class="admin-main">
+  <header class="admin-topbar">
+    <div class="topbar-title">Quản lý Danh mục</div>
+    <div class="topbar-actions">
+      <div class="admin-search"><i class="bi bi-search"></i><input type="text" placeholder="Tìm danh mục..." /></div>
+      <button class="topbar-btn"><i class="bi bi-bell"></i><span class="topbar-badge"></span></button>
+      <div class="topbar-user"><div class="topbar-avatar">AD</div><span class="topbar-name">Admin</span></div>
+    </div>
+  </header>
+
+  <div class="admin-content">
+    <div class="grid-2" style="align-items:start">
+
+      <!-- CATEGORY LIST -->
+      <div>
+    <div class="admin-page-header">
+      <div class="admin-page-header-meta">12 danh mục</div>
+      <button class="admin-btn admin-btn-primary" onclick="document.getElementById('catForm').style.display='block'; document.getElementById('formTitle').textContent='Thêm danh mục mới'">
+        <i class="bi bi-plus-lg"></i> Thêm danh mục
+      </button>
+    </div>
+        <div class="admin-card">
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Danh mục</th>
+                  <th>Danh mục cha</th>
+                  <th>Sản phẩm</th>
+                  <th>Trạng thái</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="td-avatar-row">
+                      <div class="cat-icon-cell cat-icon-orange"><i class="bi bi-phone"></i></div>
+                      <div>
+                        <div class="cat-name-cell">Điện thoại</div>
+                        <div class="cat-slug-cell">dien-thoai</div>
+                      </div>
+                    </div>
+                  </td>
+                <td class="td-muted">—</td>
+                <td style="font-weight:600">142</td>
+                  <td><span class="status-badge badge-active">Hiển thị</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-avatar-row">
+                      <div class="cat-icon-cell cat-icon-blue"><i class="bi bi-laptop"></i></div>
+                      <div>
+                        <div class="cat-name-cell">Laptop</div>
+                        <div class="cat-slug-cell">laptop</div>
+                      </div>
+                    </div>
+                  </td>
+                <td class="td-muted">—</td>
+                <td style="font-weight:600">89</td>
+                  <td><span class="status-badge badge-active">Hiển thị</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-avatar-row">
+                      <div class="cat-icon-cell cat-icon-green"><i class="bi bi-headphones"></i></div>
+                      <div>
+                        <div class="cat-name-cell">Tai nghe</div>
+                        <div class="cat-slug-cell">tai-nghe</div>
+                      </div>
+                    </div>
+                  </td>
+                <td class="td-muted">—</td>
+                <td style="font-weight:600">215</td>
+                  <td><span class="status-badge badge-active">Hiển thị</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-avatar-row" style="padding-left:1rem">
+                      <div class="cat-icon-cell cat-icon-green-sub"><i class="bi bi-earbuds"></i></div>
+                      <div>
+                        <div class="cat-name-cell">Tai nghe không dây</div>
+                        <div class="cat-slug-cell">tai-nghe-khong-day</div>
+                      </div>
+                    </div>
+                  </td>
+                <td class="td-muted">Tai nghe</td>
+                <td style="font-weight:600">128</td>
+                  <td><span class="status-badge badge-active">Hiển thị</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-avatar-row">
+                      <div class="cat-icon-cell cat-icon-yellow"><i class="bi bi-watch"></i></div>
+                      <div>
+                        <div class="cat-name-cell">Smartwatch</div>
+                        <div class="cat-slug-cell">smartwatch</div>
+                      </div>
+                    </div>
+                  </td>
+                <td class="td-muted">—</td>
+                <td style="font-weight:600">67</td>
+                  <td><span class="status-badge badge-active">Hiển thị</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-avatar-row">
+                      <div class="cat-icon-cell cat-icon-gray"><i class="bi bi-controller"></i></div>
+                      <div>
+                        <div class="cat-name-cell">Gaming</div>
+                        <div class="cat-slug-cell">gaming</div>
+                      </div>
+                    </div>
+                  </td>
+                <td class="td-muted">—</td>
+                <td style="font-weight:600">94</td>
+                  <td><span class="status-badge badge-inactive">Đã ẩn</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div id="catForm">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title" id="formTitle">Thêm danh mục mới</div>
+          </div>
+          <div class="admin-card-body">
+            <div class="admin-form-group">
+              <label class="admin-form-label">Tên danh mục *</label>
+              <input type="text" class="admin-form-control" placeholder="VD: Điện thoại" />
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">Slug (URL)</label>
+              <input type="text" class="admin-form-control" placeholder="dien-thoai" />
+              <div class="form-hint">Tự động tạo từ tên nếu để trống</div>
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">Danh mục cha</label>
+              <select class="admin-form-control">
+                <option value="">Không có (danh mục gốc)</option>
+                <option>Điện thoại</option>
+                <option>Laptop</option>
+                <option>Tai nghe</option>
+                <option>Smartwatch</option>
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">Biểu tượng (Bootstrap Icon)</label>
+              <div class="icon-input-wrap">
+                <input type="text" class="admin-form-control icon-input-field" placeholder="bi-phone, bi-laptop, bi-headphones..." />
+                <i class="bi bi-phone icon-input-icon"></i>
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">Ảnh danh mục</label>
+              <div class="upload-zone">
+                <i class="bi bi-image upload-zone-icon"></i>
+                <div class="upload-zone-hint">Click để upload ảnh</div>
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label class="admin-form-label">Trạng thái</label>
+              <div class="form-radio-group">
+                <label class="form-radio-label"><input type="radio" name="catStatus" value="1" checked class="admin-checkbox" /> Hiển thị</label>
+                <label class="form-radio-label"><input type="radio" name="catStatus" value="0" class="admin-checkbox" /> Ẩn</label>
+              </div>
+            </div>
+            <div class="form-action-row">
+              <button class="admin-btn admin-btn-primary" style="flex:1"><i class="bi bi-check-lg"></i> Lưu danh mục</button>
+              <button class="admin-btn admin-btn-outline">Hủy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="../js/client/main.js"></script>
+</body>
+</html>
