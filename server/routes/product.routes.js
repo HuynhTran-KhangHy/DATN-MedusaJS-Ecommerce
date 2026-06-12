@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/product.controller');
 const upload = require('../middleware/upload');
+const { authenticate, isSeller, isAdmin } = require('../middleware/auth.middleware');
 const { Product, Category, ProductVariant } = require('../models');
 const { Op } = require('sequelize');
 
-// Lấy tất cả sản phẩm với Phân trang và Lọc
+// Lấy tất cả sản phẩm với Phân trang, Lọc và Tìm kiếm
 router.get('/', async (req, res) => {
   try {
-    let { featured, categoryId, minPrice, maxPrice, page, limit } = req.query;
+    let { featured, categoryId, minPrice, maxPrice, page, limit, search } = req.query;
     
     page = parseInt(page) || 1;
     limit = parseInt(limit) || 8;
@@ -16,11 +17,15 @@ router.get('/', async (req, res) => {
 
     const where = {};
     if (featured === 'true') where.is_featured = true;
-    if (categoryId) where.categoryId = categoryId;
+    if (categoryId) where.category_id = categoryId;
     
+    // Tìm kiếm theo tên
+    if (search) {
+      where.name = { [Op.like]: `%${search}%` };
+    }
+
     // Lọc theo giá
     if (minPrice || maxPrice) {
-      // NOTE: Should check base_price since we renamed price to base_price in Product schema
       where.base_price = {};
       if (minPrice) where.base_price[Op.gte] = parseFloat(minPrice);
       if (maxPrice) where.base_price[Op.lte] = parseFloat(maxPrice);
@@ -30,7 +35,7 @@ router.get('/', async (req, res) => {
       where,
       limit,
       offset,
-      include: [Category],
+      include: [{ model: Category, as: 'category' }],
       order: [['created_at', 'DESC']]
     });
 
@@ -51,7 +56,7 @@ router.get('/featured', async (req, res) => {
     const products = await Product.findAll({ 
       where: { is_featured: true },
       limit: 8,
-      include: [Category]
+      include: [{ model: Category, as: 'category' }]
     });
     res.json(products);
   } catch (error) {
@@ -59,19 +64,19 @@ router.get('/featured', async (req, res) => {
   }
 });
 
-// POST /api/products
-router.post('/', upload.array('images', 5), productController.createProduct);
-
-// GET /api/products/seller
-router.get('/seller', productController.getSellerProducts);
+// GET /api/products/seller (cần đăng nhập)
+router.get('/seller', authenticate, productController.getSellerProducts);
 
 // GET /api/products/:id
 router.get('/:id', productController.getProductById);
 
-// PUT /api/products/:id
-router.put('/:id', upload.array('images', 5), productController.updateProduct);
+// POST /api/products (chỉ seller/admin)
+router.post('/', authenticate, isSeller, upload.array('images', 5), productController.createProduct);
 
-// DELETE /api/products/:id
-router.delete('/:id', productController.deleteProduct);
+// PUT /api/products/:id (chỉ seller/admin)
+router.put('/:id', authenticate, isSeller, upload.array('images', 5), productController.updateProduct);
+
+// DELETE /api/products/:id (chỉ seller/admin)
+router.delete('/:id', authenticate, isSeller, productController.deleteProduct);
 
 module.exports = router;
