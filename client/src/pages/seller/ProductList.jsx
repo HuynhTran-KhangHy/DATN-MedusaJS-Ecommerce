@@ -118,9 +118,13 @@ const ProductList = () => {
                     </td>
                     <td className="td-price">{new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.base_price)}</td>
                     <td>
-                      <span className={`status-badge ${product.status === 1 ? 'badge-active' : 'badge-inactive'}`}>
-                        {product.status === 1 ? 'Đang bán' : 'Tạm ẩn'}
-                      </span>
+                      {product.status === 2 ? (
+                        <span className="status-badge badge-active">Đang bán</span>
+                      ) : product.status === 1 ? (
+                        <span className="status-badge badge-pending">Chờ duyệt</span>
+                      ) : (
+                        <span className="status-badge badge-cancelled">Bị từ chối</span>
+                      )}
                     </td>
                     <td>
                       <div className="action-btns">

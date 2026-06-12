@@ -1,4 +1,5 @@
-const User = require('../models/User');
+const { User, Product, Category, ProductImage } = require('../models');
+const mailService = require('../utils/mail.service');
 
 // Lấy danh sách tất cả người dùng
 exports.getAllUsers = async (req, res) => {
@@ -63,5 +64,71 @@ exports.updateUserRole = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: 'Lỗi khi cập nhật vai trò', error: error.message });
+  }
+};
+
+// PB-10: Lấy danh sách sản phẩm chờ duyệt
+exports.getPendingProducts = async (req, res) => {
+  try {
+    const products = await Product.findAll({
+      where: { status: 1 }, // 1: Pending
+      include: [
+        { model: User, as: 'seller', attributes: ['id', 'name', 'email'] },
+        { model: Category, as: 'category', attributes: ['name'] },
+        { model: ProductImage, as: 'images', attributes: ['image_url'], limit: 1 }
+      ],
+      order: [['created_at', 'DESC']]
+    });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi khi lấy danh sách chờ duyệt', error: error.message });
+  }
+};
+
+// PB-10: Duyệt sản phẩm
+exports.approveProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByPk(id, {
+      include: [{ model: User, as: 'seller', attributes: ['email'] }]
+    });
+
+    if (!product) return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
+
+    product.status = 2; // 2: Active (Approved)
+    await product.save();
+
+    // Gửi email thông báo
+    await mailService.sendApprovalEmail(product.seller.email, product.name, 'approved');
+
+    res.json({ message: 'Đã duyệt sản phẩm và gửi email thông báo thành công!' });
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi khi duyệt sản phẩm', error: error.message });
+  }
+};
+
+// PB-10: Từ chối sản phẩm
+exports.rejectProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { reason } = req.body;
+    
+    if (!reason) return res.status(400).json({ message: 'Vui lòng cung cấp lý do từ chối' });
+
+    const product = await Product.findByPk(id, {
+      include: [{ model: User, as: 'seller', attributes: ['email'] }]
+    });
+
+    if (!product) return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
+
+    product.status = 0; // 0: Rejected
+    await product.save();
+
+    // Gửi email thông báo
+    await mailService.sendApprovalEmail(product.seller.email, product.name, 'rejected', reason);
+
+    res.json({ message: 'Đã từ chối sản phẩm và gửi lý do cho người bán qua email!' });
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi khi từ chối sản phẩm', error: error.message });
   }
 };

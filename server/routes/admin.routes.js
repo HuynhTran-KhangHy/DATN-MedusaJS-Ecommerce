@@ -8,13 +8,14 @@ const adminMiddleware = require('../middleware/admin.middleware');
 router.use(authMiddleware);
 router.use(adminMiddleware);
 
-// Lấy danh sách người dùng
+// --- Quản lý người dùng (PB-11) ---
 router.get('/users', adminController.getAllUsers);
-
-// Cập nhật trạng thái (khóa/mở)
 router.patch('/users/:id/status', adminController.updateUserStatus);
-
-// Cập nhật vai trò (cấp quyền seller)
 router.patch('/users/:id/role', adminController.updateUserRole);
+
+// --- Duyệt sản phẩm (PB-10) ---
+router.get('/products/pending', adminController.getPendingProducts);
+router.patch('/products/:id/approve', adminController.approveProduct);
+router.patch('/products/:id/reject', adminController.rejectProduct);
 
 module.exports = router;

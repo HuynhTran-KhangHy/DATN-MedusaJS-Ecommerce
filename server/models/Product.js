@@ -38,7 +38,7 @@ const Product = sequelize.define('Product', {
   },
   status: {
     type: DataTypes.TINYINT(1),
-    defaultValue: 1, // 1: Active, 0: Inactive
+    defaultValue: 1, // 0: Rejected, 1: Pending, 2: Active
   },
   slug: {
     type: DataTypes.STRING(255),

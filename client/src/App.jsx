@@ -14,6 +14,7 @@ import EditProduct from './pages/seller/EditProduct';
 // Admin Pages
 import AdminLayout from './layouts/AdminLayout';
 import UserManagement from './pages/admin/UserManagement';
+import ProductApproval from './pages/admin/ProductApproval';
 
 // Import Global CSS
 import './assets/css/client/style.css';
@@ -41,6 +42,7 @@ function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<UserManagement />} />
           <Route path="users" element={<UserManagement />} />
+          <Route path="products" element={<ProductApproval />} />
         </Route>
       </Routes>
     </BrowserRouter>

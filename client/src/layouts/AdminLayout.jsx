@@ -34,7 +34,7 @@ const AdminLayout = () => {
           <Link to="/admin/users" className={`sidebar-link ${isActive('/admin/users') ? 'active' : ''}`}>
             <i className="bi bi-people"></i> Người dùng
           </Link>
-          <Link to="#" className="sidebar-link">
+          <Link to="/admin/products" className={`sidebar-link ${isActive('/admin/products') ? 'active' : ''}`}>
             <i className="bi bi-check-circle"></i> Duyệt sản phẩm
           </Link>
           <Link to="#" className="sidebar-link">
