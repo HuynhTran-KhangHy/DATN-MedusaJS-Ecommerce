@@ -28,10 +28,16 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
+const shippingRoutes = require('./routes/shipping.routes');
+app.use('/api/shipping', shippingRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'API đang chạy!' });
 });
+
+// Global error handler
+const errorHandler = require('./middleware/error.middleware');
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {

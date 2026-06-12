@@ -44,11 +44,14 @@ const Products = () => {
           ...filters
         };
         const res = await axios.get('http://localhost:3000/api/products', { params });
-        setProducts(res.data.products);
+        const payload = res.data?.data || res.data;
+        const items = Array.isArray(payload?.products) ? payload.products : Array.isArray(res.data?.products) ? res.data.products : [];
+
+        setProducts(items);
         setPagination(prev => ({
           ...prev,
-          totalPages: res.data.totalPages,
-          totalItems: res.data.totalItems
+          totalPages: payload?.totalPages ?? res.data?.totalPages ?? 1,
+          totalItems: payload?.totalItems ?? res.data?.totalItems ?? 0
         }));
       } catch (err) {
         console.error(err);

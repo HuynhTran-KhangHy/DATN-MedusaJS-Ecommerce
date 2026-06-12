@@ -36,6 +36,14 @@ const ProductVariant = sequelize.define('ProductVariant', {
     type: DataTypes.JSON, // Stores { color: "Black", ram: "8GB", storage: "256GB" }
     allowNull: true,
   },
+  color: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+  },
+  size: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+  },
   image: {
     type: DataTypes.STRING,
     allowNull: true,
