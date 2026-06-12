@@ -66,7 +66,7 @@ const createOrder = async (req, res) => {
       }, { transaction: t });
 
       // Deduct inventory
-      await ProductVariant.decrement('inventoryQuantity', {
+      await ProductVariant.decrement('stock', {
         by: item.quantity,
         where: { id: item.id },
         transaction: t

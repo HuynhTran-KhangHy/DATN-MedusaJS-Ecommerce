@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product-card">
       <div className="product-image">
-        <img src={product.image || 'https://via.placeholder.com/300'} alt={product.name} />
+        <img src={product.image || 'https://placehold.co/300x300'} alt={product.name} />
       </div>
       <div className="product-info">
         <span className="product-category">{product.Category?.name}</span>

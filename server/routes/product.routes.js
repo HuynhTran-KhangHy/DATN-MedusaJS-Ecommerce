@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 
     const where = {};
     if (featured === 'true') where.is_featured = true;
-    if (categoryId) where.categoryId = categoryId;
+    if (categoryId) where.category_id = categoryId;
     
     // Lọc theo giá
     if (minPrice || maxPrice) {
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
       where,
       limit,
       offset,
-      include: [Category],
+      include: ['category'],
       order: [['created_at', 'DESC']]
     });
 
@@ -51,7 +51,7 @@ router.get('/featured', async (req, res) => {
     const products = await Product.findAll({ 
       where: { is_featured: true },
       limit: 8,
-      include: [Category]
+      include: ['category']
     });
     res.json(products);
   } catch (error) {

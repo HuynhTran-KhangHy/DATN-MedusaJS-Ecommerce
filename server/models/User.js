@@ -7,6 +7,8 @@ const User = sequelize.define('User', {
     autoIncrement: true,
     primaryKey: true,
   },
+  name: {
+    type: DataTypes.STRING(100),
     allowNull: true, // Cho phép null vì đôi khi đăng ký qua email chưa cần nhập tên ngay
   },
   email: {
