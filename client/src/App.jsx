@@ -11,6 +11,10 @@ import ProductList from './pages/seller/ProductList';
 import AddProduct from './pages/seller/AddProduct';
 import EditProduct from './pages/seller/EditProduct';
 
+// Admin Pages
+import AdminLayout from './layouts/AdminLayout';
+import UserManagement from './pages/admin/UserManagement';
+
 // Import Global CSS
 import './assets/css/client/style.css';
 
@@ -31,6 +35,12 @@ function App() {
           <Route path="products" element={<ProductList />} />
           <Route path="products/add" element={<AddProduct />} />
           <Route path="products/edit/:id" element={<EditProduct />} />
+        </Route>
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<UserManagement />} />
+          <Route path="users" element={<UserManagement />} />
         </Route>
       </Routes>
     </BrowserRouter>

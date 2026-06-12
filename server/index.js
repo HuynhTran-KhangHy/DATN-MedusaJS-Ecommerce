@@ -19,6 +19,7 @@ app.use(passport.initialize());
 app.use('/api/auth', authRoutes);
 app.use('/api/products', require('./routes/product.routes'));
 app.use('/api/categories', require('./routes/category.routes'));
+app.use('/api/admin', require('./routes/admin.routes'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'API đang chạy!' });
