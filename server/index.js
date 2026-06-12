@@ -30,6 +30,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
 const shippingRoutes = require('./routes/shipping.routes');
 app.use('/api/shipping', shippingRoutes);
+app.use('/api/admin', require('./routes/admin.routes'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'API đang chạy!' });
