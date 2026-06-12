@@ -28,6 +28,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/admin', require('./routes/admin.routes'));
 
 app.get('/', (req, res) => {
   res.json({ message: 'API đang chạy!' });
