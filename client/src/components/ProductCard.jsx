@@ -13,17 +13,22 @@ const ProductCard = ({ product }) => {
   const handleQuickAdd = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // Quick add uses the base product price and no specific variant if not chosen
+    // Quick add uses the base_price
     addToCart(product, null, 1);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
 
+  // Sử dụng base_price nếu không có price (để tương thích với DB)
+  const displayPrice = product.price || product.base_price || 0;
+  // Sử dụng is_featured hoặc is_new
+  const isBadgeVisible = product.is_featured || product.is_new;
+
   return (
     <div className="product-card">
       <Link to={`/products/${product.id}`} className="product-card-img">
         <img src={product.image || 'https://via.placeholder.com/600'} alt={product.name} />
-        {product.is_new && <span className="product-badge badge-new">Mới</span>}
+        {isBadgeVisible && <span className="product-badge badge-new">HOT</span>}
         <button 
           className="product-card-btn-add btn-add-cart" 
           onClick={handleQuickAdd}
@@ -36,7 +41,7 @@ const ProductCard = ({ product }) => {
         <div className="product-category">{product.Category?.name || product.category?.name || 'Sản phẩm'}</div>
         <Link to={`/products/${product.id}`} className="product-name">{product.name}</Link>
         <div className="product-price-row">
-          <span className="product-price">{formatPrice(product.price || product.base_price)}</span>
+          <span className="product-price">{formatPrice(displayPrice)}</span>
         </div>
       </div>
     </div>

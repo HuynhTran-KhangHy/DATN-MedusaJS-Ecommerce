@@ -55,7 +55,7 @@ const ProductDetail = () => {
   const colors = [...new Set(variants.map(v => v.color))].filter(Boolean);
   const sizes = [...new Set(variants.map(v => v.size))].filter(Boolean);
 
-  const displayPrice = currentVariant ? currentVariant.price : product.price;
+  const displayPrice = currentVariant ? currentVariant.price : (product.price || product.base_price);
   const displayImage = currentVariant?.image ? currentVariant.image : product.image;
   const isOutOfStock = currentVariant ? currentVariant.stock === 0 : false;
 

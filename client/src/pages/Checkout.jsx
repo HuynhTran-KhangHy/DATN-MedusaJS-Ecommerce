@@ -112,10 +112,10 @@ const Checkout = () => {
         setShippingFee(0);
         return;
       }
-      
+
       try {
         const totalWeight = cartItems.reduce((total, item) => total + (200 * item.quantity), 0); // Estimate 200g per item
-        
+
         const payload = {
           service_type_id: 2, // Standard E-commerce delivery
           insurance_value: subtotal,
@@ -133,7 +133,7 @@ const Checkout = () => {
           },
           body: JSON.stringify(payload)
         });
-        
+
         const data = await response.json();
         if (data.code === 200 && data.data) {
           setShippingFee(data.data.total);
@@ -146,7 +146,7 @@ const Checkout = () => {
         setShippingFee(30000); // Fallback fee
       }
     };
-    
+
     if (GHN_TOKEN && GHN_SHOP_ID) {
       calculateFee();
     }
@@ -155,7 +155,7 @@ const Checkout = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     // Reset dependent fields when parent changes
     if (name === 'province') {
       setFormData(prev => ({ ...prev, [name]: value, district: '', ward: '' }));
@@ -168,7 +168,7 @@ const Checkout = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!formData.province || !formData.district || !formData.ward) {
       alert("Vui lòng chọn đầy đủ địa chỉ giao hàng");
       return;
@@ -192,7 +192,7 @@ const Checkout = () => {
       });
 
       const data = await response.json();
-      
+
       if (response.ok) {
         alert("🎉 Đặt hàng thành công! Mã đơn hàng: " + data.orderId);
         // Ở đây có thể điều hướng sang trang Success (ví dụ: navigate('/order-success'))
@@ -219,19 +219,19 @@ const Checkout = () => {
       <div className="section">
         <div className="container">
           <form onSubmit={handleSubmit} className="checkout-layout">
-            
+
             {/* LEFT COLUMN: User Info & Shipping */}
             <div className="checkout-main">
               <div className="checkout-section">
                 <h3 className="checkout-section-title">
                   <i className="ri-user-line"></i> Thông tin giao hàng
                 </h3>
-                
+
                 <div className="form-group">
                   <label className="form-label">Họ và tên *</label>
-                  <input 
-                    type="text" 
-                    className="form-control" 
+                  <input
+                    type="text"
+                    className="form-control"
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
@@ -243,9 +243,9 @@ const Checkout = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label className="form-label">Số điện thoại *</label>
-                    <input 
-                      type="tel" 
-                      className="form-control" 
+                    <input
+                      type="tel"
+                      className="form-control"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
@@ -255,9 +255,9 @@ const Checkout = () => {
                   </div>
                   <div className="form-group">
                     <label className="form-label">Email (Tùy chọn)</label>
-                    <input 
-                      type="email" 
-                      className="form-control" 
+                    <input
+                      type="email"
+                      className="form-control"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
@@ -269,8 +269,8 @@ const Checkout = () => {
                 <div className="form-row mt-1">
                   <div className="form-group">
                     <label className="form-label">Tỉnh / Thành phố *</label>
-                    <select 
-                      className="form-control" 
+                    <select
+                      className="form-control"
                       name="province"
                       value={formData.province}
                       onChange={handleInputChange}
@@ -284,8 +284,8 @@ const Checkout = () => {
                   </div>
                   <div className="form-group">
                     <label className="form-label">Quận / Huyện *</label>
-                    <select 
-                      className="form-control" 
+                    <select
+                      className="form-control"
                       name="district"
                       value={formData.district}
                       onChange={handleInputChange}
@@ -303,8 +303,8 @@ const Checkout = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label className="form-label">Phường / Xã *</label>
-                    <select 
-                      className="form-control" 
+                    <select
+                      className="form-control"
                       name="ward"
                       value={formData.ward}
                       onChange={handleInputChange}
@@ -319,9 +319,9 @@ const Checkout = () => {
                   </div>
                   <div className="form-group">
                     <label className="form-label">Địa chỉ cụ thể *</label>
-                    <input 
-                      type="text" 
-                      className="form-control" 
+                    <input
+                      type="text"
+                      className="form-control"
                       name="address"
                       value={formData.address}
                       onChange={handleInputChange}
@@ -333,8 +333,8 @@ const Checkout = () => {
 
                 <div className="form-group mt-1">
                   <label className="form-label">Ghi chú đơn hàng (Tùy chọn)</label>
-                  <textarea 
-                    className="form-control" 
+                  <textarea
+                    className="form-control"
                     name="note"
                     value={formData.note}
                     onChange={handleInputChange}
@@ -350,10 +350,10 @@ const Checkout = () => {
                 </h3>
                 <div className="payment-method-list">
                   <label className={`payment-method ${formData.paymentMethod === 'cod' ? 'selected' : ''}`}>
-                    <input 
-                      type="radio" 
-                      name="paymentMethod" 
-                      value="cod" 
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="cod"
                       checked={formData.paymentMethod === 'cod'}
                       onChange={handleInputChange}
                     />
@@ -361,10 +361,10 @@ const Checkout = () => {
                     <div className="payment-method-name">Thanh toán khi nhận hàng (COD)</div>
                   </label>
                   <label className={`payment-method ${formData.paymentMethod === 'momo' ? 'selected' : ''}`}>
-                    <input 
-                      type="radio" 
-                      name="paymentMethod" 
-                      value="momo" 
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="momo"
                       checked={formData.paymentMethod === 'momo'}
                       onChange={handleInputChange}
                     />
@@ -379,7 +379,7 @@ const Checkout = () => {
             <div className="checkout-sidebar">
               <div className="cart-summary">
                 <h3>ĐƠN HÀNG CỦA BẠN</h3>
-                
+
                 <div className="checkout-items-list mb-15">
                   {cartItems.map(item => (
                     <div key={item.id} className="cart-item" style={{ padding: '0.8rem 0' }}>
@@ -406,7 +406,7 @@ const Checkout = () => {
                   <span>Phí vận chuyển</span>
                   <span>{shippingFee === 0 ? 'Chưa xác định' : `${shippingFee.toLocaleString()}đ`}</span>
                 </div>
-                
+
                 <div className="summary-row total mt-1 pt-1" style={{ borderTop: '1px solid var(--border)' }}>
                   <span>TỔNG CỘNG</span>
                   <span className="text-accent" style={{ fontSize: '1.4rem' }}>{total.toLocaleString()}đ</span>
@@ -417,7 +417,7 @@ const Checkout = () => {
                 </button>
               </div>
             </div>
-            
+
           </form>
         </div>
       </div>
