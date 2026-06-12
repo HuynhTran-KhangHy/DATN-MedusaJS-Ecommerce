@@ -49,7 +49,7 @@ const Checkout = () => {
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
-        const response = await fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province', {
+        const response = await fetch('https://online-gateway.ghn.vn/shiip/public-api/master-data/province', {
           headers: { 'token': GHN_TOKEN }
         });
         const data = await response.json();
@@ -70,7 +70,7 @@ const Checkout = () => {
         return;
       }
       try {
-        const response = await fetch(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=${formData.province}`, {
+        const response = await fetch(`https://online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=${formData.province}`, {
           headers: { 'token': GHN_TOKEN }
         });
         const data = await response.json();
@@ -90,7 +90,7 @@ const Checkout = () => {
         return;
       }
       try {
-        const response = await fetch(`https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${formData.district}`, {
+        const response = await fetch(`https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${formData.district}`, {
           headers: { 'token': GHN_TOKEN }
         });
         const data = await response.json();
@@ -124,7 +124,7 @@ const Checkout = () => {
           weight: totalWeight || 200
         };
 
-        const response = await fetch('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee', {
+        const response = await fetch('https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

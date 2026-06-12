@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useCart } from '../context/CartContext';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   
@@ -14,16 +11,18 @@ const ProductDetail = () => {
   const [selectedSize, setSelectedSize] = useState('');
   const [currentVariant, setCurrentVariant] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/products/${id}`);
-        setProduct(res.data);
-        
-        if (res.data.variants && res.data.variants.length > 0) {
-          const first = res.data.variants[0];
+        const payload = res.data?.data || res.data?.product || res.data;
+
+        setProduct(payload);
+
+        // Mặc định chọn biến thể đầu tiên nếu có
+        if (payload?.variants?.length > 0) {
+          const first = payload.variants[0];
           setSelectedColor(first.color);
           setSelectedSize(first.size);
           setCurrentVariant(first);
@@ -44,13 +43,6 @@ const ProductDetail = () => {
     }
   }, [selectedColor, selectedSize, product]);
 
-  const handleAddToCart = () => {
-    if (!product) return;
-    addToCart(product, currentVariant, quantity);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
-  };
-
   const formatPrice = (price) => {
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price).replace('₫', 'đ');
   };
@@ -58,8 +50,10 @@ const ProductDetail = () => {
   if (loading) return <div className="container section">Đang tải sản phẩm...</div>;
   if (!product) return <div className="container section">Không tìm thấy sản phẩm.</div>;
 
-  const colors = [...new Set(product.variants.map(v => v.color))].filter(Boolean);
-  const sizes = [...new Set(product.variants.map(v => v.size))].filter(Boolean);
+  // Lấy danh sách Color và Size duy nhất từ các biến thể
+  const variants = Array.isArray(product?.variants) ? product.variants : [];
+  const colors = [...new Set(variants.map(v => v.color))].filter(Boolean);
+  const sizes = [...new Set(variants.map(v => v.size))].filter(Boolean);
 
   const displayPrice = currentVariant ? currentVariant.price : product.price;
   const displayImage = currentVariant?.image ? currentVariant.image : product.image;
@@ -87,6 +81,7 @@ const ProductDetail = () => {
           <h1 className="product-detail-title">{product.name}</h1>
           <div className="product-detail-price">
             {formatPrice(displayPrice)}
+            {/* <span>{formatPrice(displayPrice * 1.2)}</span> */}
           </div>
 
           <p className="hero-desc" style={{ color: 'var(--gray)', marginBottom: '2rem' }}>
@@ -138,16 +133,12 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          <div className="product-actions" style={{ position: 'relative' }}>
-            <button 
-              className="btn btn-primary" 
-              disabled={isOutOfStock || !currentVariant}
-              onClick={handleAddToCart}
-            >
-              {added ? '✓ ĐÃ THÊM' : (isOutOfStock ? 'HẾT HÀNG' : 'THÊM VÀO GIỎ HÀNG')}
+          <div className="product-actions">
+            <button className="btn btn-primary" disabled={isOutOfStock || !currentVariant}>
+              {isOutOfStock ? 'HẾT HÀNG' : 'THÊM VÀO GIỎ HÀNG'}
             </button>
-            <button className="btn btn-outline" style={{ borderColor: 'var(--dark)', color: 'var(--dark)' }} onClick={() => navigate('/cart')}>
-              XEM GIỎ HÀNG
+            <button className="btn-icon" style={{ border: '1.5px solid #eee', width: '50px', height: '50px' }}>
+              <i className="bi bi-heart"></i>
             </button>
           </div>
 

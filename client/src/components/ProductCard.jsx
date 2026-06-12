@@ -33,10 +33,10 @@ const ProductCard = ({ product }) => {
         </button>
       </Link>
       <div className="product-card-body">
-        <div className="product-category">{product.Category?.name}</div>
+        <div className="product-category">{product.Category?.name || product.category?.name || 'Sản phẩm'}</div>
         <Link to={`/products/${product.id}`} className="product-name">{product.name}</Link>
         <div className="product-price-row">
-          <span className="product-price">{formatPrice(product.price)}</span>
+          <span className="product-price">{formatPrice(product.price || product.base_price)}</span>
         </div>
       </div>
     </div>
