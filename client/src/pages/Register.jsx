@@ -1,6 +1,51 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    password: ''
+  });
+  const [otp, setOtp] = useState('');
+  const [step, setStep] = useState(1); // 1: Register, 2: OTP
+  const [message, setMessage] = useState({ type: '', text: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage({ type: '', text: '' });
+    try {
+      await axios.post('http://localhost:3000/api/auth/register', formData);
+      setMessage({ type: 'success', text: 'Đăng ký thành công! Vui lòng kiểm tra mã OTP tại Terminal của Server.' });
+      setStep(2);
+    } catch (err) {
+      setMessage({ type: 'danger', text: err.response?.data?.message || 'Có lỗi xảy ra khi đăng ký.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await axios.post('http://localhost:3000/api/auth/verify-otp', {
+        email: formData.email,
+        otp
+      });
+      setMessage({ type: 'success', text: 'Xác thực thành công! Đang chuyển hướng đến trang đăng nhập...' });
+      setTimeout(() => navigate('/login'), 2000);
+    } catch (err) {
+      setMessage({ type: 'danger', text: err.response?.data?.message || 'Mã OTP không chính xác.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="auth-layout">
       {/* VISUAL SIDE */}
@@ -22,39 +67,98 @@ const Register = () => {
       <div className="auth-form-side">
         <div className="auth-form-wrap">
           <div style={{ marginBottom: '2rem' }}>
-            <h1 style={{ fontFamily: '"Bebas Neue",sans-serif', fontSize: '2rem', letterSpacing: '1px', marginBottom: '0.2rem' }}>Đăng ký</h1>
-            <p className="text-muted text-sm" style={{ fontSize: '0.875rem', color: 'var(--gray)' }}>Tạo tài khoản mới chỉ trong vài giây.</p>
+            <h1 style={{ fontFamily: '"Bebas Neue",sans-serif', fontSize: '2rem', letterSpacing: '1px', marginBottom: '0.2rem' }}>
+              {step === 1 ? 'Đăng ký' : 'Xác thực OTP'}
+            </h1>
+            <p className="text-muted text-sm" style={{ fontSize: '0.875rem', color: 'var(--gray)' }}>
+              {step === 1 ? 'Tạo tài khoản mới chỉ trong vài giây.' : `Chúng tôi đã gửi mã xác thực đến ${formData.email}`}
+            </p>
           </div>
 
-          <div className="form-group" style={{ marginBottom: '1.2rem' }}>
-            <label className="form-label" style={{ fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Họ và tên *</label>
-            <div className="input-icon-wrap">
-              <i className="bi bi-person"></i>
-              <input type="text" className="form-control" style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} placeholder="Nguyễn Văn A" />
+          {message.text && (
+            <div style={{ padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', background: message.type === 'success' ? '#dcfce7' : '#fee2e2', color: message.type === 'success' ? '#166534' : '#991b1b', fontSize: '0.85rem' }}>
+              <i className={message.type === 'success' ? 'bi bi-check-circle-fill' : 'bi bi-exclamation-circle-fill'}></i> {message.text}
             </div>
-          </div>
+          )}
 
-          <div className="form-group" style={{ marginBottom: '1.2rem' }}>
-            <label className="form-label" style={{ fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Email *</label>
-            <div className="input-icon-wrap">
-              <i className="bi bi-envelope"></i>
-              <input type="email" className="form-control" style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} placeholder="email@example.com" />
-            </div>
-          </div>
+          {step === 1 ? (
+            <form onSubmit={handleRegister}>
+              <div className="form-group" style={{ marginBottom: '1.2rem' }}>
+                <label className="form-label" style={{ fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Họ và tên *</label>
+                <div className="input-icon-wrap">
+                  <i className="bi bi-person"></i>
+                  <input 
+                    type="text" 
+                    className="form-control" 
+                    required
+                    style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} 
+                    placeholder="Nguyễn Văn A" 
+                    value={formData.fullName}
+                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                  />
+                </div>
+              </div>
 
-          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-            <label className="form-label" style={{ fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Mật khẩu *</label>
-            <div className="input-icon-wrap">
-              <i className="bi bi-lock"></i>
-              <input type="password" className="form-control" style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} placeholder="Tạo mật khẩu mạnh..." />
-              <button className="toggle-pw"><i className="bi bi-eye"></i></button>
-            </div>
-            <div className="strength-bar"><div className="strength-fill"></div></div>
-          </div>
+              <div className="form-group" style={{ marginBottom: '1.2rem' }}>
+                <label className="form-label" style={{ fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Email *</label>
+                <div className="input-icon-wrap">
+                  <i className="bi bi-envelope"></i>
+                  <input 
+                    type="email" 
+                    className="form-control" 
+                    required
+                    style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} 
+                    placeholder="email@example.com" 
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  />
+                </div>
+              </div>
 
-          <button className="btn btn-primary btn-block btn-lg">
-            <i className="bi bi-person-plus"></i> ĐĂNG KÝ NGAY
-          </button>
+              <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                <label className="form-label" style={{ fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Mật khẩu *</label>
+                <div className="input-icon-wrap">
+                  <i className="bi bi-lock"></i>
+                  <input 
+                    type="password" 
+                    className="form-control" 
+                    required
+                    style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} 
+                    placeholder="Tạo mật khẩu mạnh..." 
+                    value={formData.password}
+                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                  />
+                </div>
+              </div>
+
+              <button className="btn btn-primary btn-block btn-lg" type="submit" disabled={loading}>
+                <i className="bi bi-person-plus"></i> {loading ? 'Đang xử lý...' : 'ĐĂNG KÝ NGAY'}
+              </button>
+            </form>
+          ) : (
+            <form onSubmit={handleVerifyOtp}>
+              <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                <label className="form-label" style={{ fontWeight: 600, display: 'block', marginBottom: '0.4rem' }}>Mã OTP (6 chữ số) *</label>
+                <div className="input-icon-wrap">
+                  <i className="bi bi-shield-lock"></i>
+                  <input 
+                    type="text" 
+                    maxLength="6"
+                    className="form-control" 
+                    required
+                    style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)', letterSpacing: '8px', fontSize: '1.2rem', fontWeight: '800' }} 
+                    placeholder="000000" 
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <button className="btn btn-primary btn-block btn-lg" type="submit" disabled={loading}>
+                {loading ? 'Đang xác thực...' : 'XÁC THỰC TÀI KHOẢN'}
+              </button>
+            </form>
+          )}
 
           <div className="divider" style={{ textAlign: 'center', margin: '1.5rem 0', color: 'var(--gray)', fontSize: '0.8rem' }}>hoặc đăng ký với</div>
 

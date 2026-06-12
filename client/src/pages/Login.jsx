@@ -1,6 +1,33 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const [message, setMessage] = useState({ type: '', text: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage({ type: '', text: '' });
+    try {
+      const res = await axios.post('http://localhost:3000/api/auth/login', formData);
+      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', JSON.stringify(res.data.user));
+      setMessage({ type: 'success', text: 'Đăng nhập thành công! Đang chuyển hướng...' });
+      setTimeout(() => navigate('/profile'), 1500);
+    } catch (err) {
+      setMessage({ type: 'danger', text: err.response?.data?.message || 'Email hoặc mật khẩu không đúng.' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="auth-layout">
       {/* VISUAL SIDE */}
@@ -40,34 +67,52 @@ const Login = () => {
             <p className="text-muted text-sm" style={{ fontSize: '0.875rem', color: 'var(--gray)' }}>Chào mừng bạn trở lại! Vui lòng đăng nhập.</p>
           </div>
 
-          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-            <label className="form-label" style={{ fontWeight: 600, display: 'block', marginBottom: '0.5rem' }}>Email *</label>
-            <div className="input-icon-wrap">
-              <i className="bi bi-envelope"></i>
-              <input type="email" className="form-control" style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} placeholder="email@example.com" />
+          {message.text && (
+            <div style={{ padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', background: message.type === 'success' ? '#dcfce7' : '#fee2e2', color: message.type === 'success' ? '#166534' : '#991b1b', fontSize: '0.85rem' }}>
+               <i className={message.type === 'success' ? 'bi bi-check-circle-fill' : 'bi bi-exclamation-circle-fill'}></i> {message.text}
             </div>
-          </div>
+          )}
 
-          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-            <label className="form-label flex-between" style={{ fontWeight: 600, display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-              Mật khẩu *
-              <Link to="#" className="form-link text-sm" style={{ fontWeight: 500, fontSize: '0.8rem', color: 'var(--accent)' }}>Quên mật khẩu?</Link>
-            </label>
-            <div className="input-icon-wrap">
-              <i className="bi bi-lock"></i>
-              <input type="password" className="form-control" style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} placeholder="Nhập mật khẩu..." />
-              <button className="toggle-pw"><i className="bi bi-eye"></i></button>
+          <form onSubmit={handleLogin}>
+            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+              <label className="form-label" style={{ fontWeight: 600, display: 'block', marginBottom: '0.5rem' }}>Email *</label>
+              <div className="input-icon-wrap">
+                <i className="bi bi-envelope"></i>
+                <input 
+                  type="email" 
+                  className="form-control" 
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} 
+                  placeholder="email@example.com" 
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="flex-center" style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <input type="checkbox" id="remember" style={{ accentColor: 'var(--dark)', width: '15px', height: '15px' }} />
-            <label htmlFor="remember" className="text-sm" style={{ cursor: 'pointer', fontSize: '0.875rem' }}>Nhớ đăng nhập</label>
-          </div>
+            <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+              <label className="form-label flex-between" style={{ fontWeight: 600, display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                Mật khẩu *
+                <Link to="#" className="form-link text-sm" style={{ fontWeight: 500, fontSize: '0.8rem', color: 'var(--accent)' }}>Quên mật khẩu?</Link>
+              </label>
+              <div className="input-icon-wrap">
+                <i className="bi bi-lock"></i>
+                <input 
+                  type="password" 
+                  className="form-control" 
+                  required
+                  value={formData.password}
+                  onChange={(e) => setFormData({...formData, password: e.target.value})}
+                  style={{ width: '100%', padding: '0.75rem 1rem 0.75rem 2.5rem', border: '1.5px solid var(--border)', borderRadius: 'var(--radius)' }} 
+                  placeholder="Nhập mật khẩu..." 
+                />
+              </div>
+            </div>
 
-          <button className="btn btn-primary btn-block btn-lg">
-            <i className="bi bi-box-arrow-in-right"></i> ĐĂNG NHẬP
-          </button>
+            <button className="btn btn-primary btn-block btn-lg" type="submit" disabled={loading}>
+              <i className="bi bi-box-arrow-in-right"></i> {loading ? 'Đang xác thực...' : 'ĐĂNG NHẬP'}
+            </button>
+          </form>
 
           <div className="divider" style={{ textAlign: 'center', margin: '1.5rem 0', color: 'var(--gray)', fontSize: '0.8rem', position: 'relative' }}>hoặc tiếp tục với</div>
 
