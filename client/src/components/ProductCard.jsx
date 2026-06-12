@@ -12,7 +12,7 @@ const ProductCard = ({ product }) => {
         <img src={product.image || 'https://placehold.co/300x300'} alt={product.name} />
       </div>
       <div className="product-info">
-        <span className="product-category">{product.Category?.name}</span>
+        <span className="product-category">{product.category?.name || product.Category?.name || 'Sản phẩm'}</span>
         <h3 className="product-name">{product.name}</h3>
         <p className="product-price">{formatPrice(product.price)}</p>
         <Link to={`/products/${product.id}`} className="btn-view">Xem chi tiết</Link>

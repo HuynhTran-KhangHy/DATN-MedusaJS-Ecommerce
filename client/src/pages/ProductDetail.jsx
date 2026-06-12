@@ -17,11 +17,13 @@ const ProductDetail = () => {
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/products/${id}`);
-        setProduct(res.data);
-        
+        const payload = res.data?.data || res.data?.product || res.data;
+
+        setProduct(payload);
+
         // Mặc định chọn biến thể đầu tiên nếu có
-        if (res.data.variants && res.data.variants.length > 0) {
-          const first = res.data.variants[0];
+        if (payload?.variants?.length > 0) {
+          const first = payload.variants[0];
           setSelectedColor(first.color);
           setSelectedSize(first.size);
           setCurrentVariant(first);
@@ -51,8 +53,9 @@ const ProductDetail = () => {
   if (!product) return <div className="container">Không tìm thấy sản phẩm.</div>;
 
   // Lấy danh sách Color và Size duy nhất từ các biến thể
-  const colors = [...new Set(product.variants.map(v => v.color))].filter(Boolean);
-  const sizes = [...new Set(product.variants.map(v => v.size))].filter(Boolean);
+  const variants = Array.isArray(product?.variants) ? product.variants : [];
+  const colors = [...new Set(variants.map(v => v.color))].filter(Boolean);
+  const sizes = [...new Set(variants.map(v => v.size))].filter(Boolean);
 
   // Hiển thị giá và ảnh: Ưu tiên theo biến thể, nếu k có thì lấy của sản phẩm gốc
   const displayPrice = currentVariant ? currentVariant.price : product.price;
@@ -70,7 +73,7 @@ const ProductDetail = () => {
 
       {/* Cột phải: Thông tin */}
       <div className="product-info-details">
-        <span className="category-tag">{product.Category?.name}</span>
+        <span className="category-tag">{product.category?.name || product.Category?.name || 'Sản phẩm'}</span>
         <h1>{product.name}</h1>
         
         <div className="rating">

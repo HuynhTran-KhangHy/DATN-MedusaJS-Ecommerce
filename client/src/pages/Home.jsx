@@ -8,6 +8,13 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const normalizeList = (payload) => {
+    if (Array.isArray(payload)) return payload;
+    if (Array.isArray(payload?.data)) return payload.data;
+    if (Array.isArray(payload?.products)) return payload.products;
+    return [];
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -15,8 +22,9 @@ const Home = () => {
           axios.get('http://localhost:3000/api/categories'),
           axios.get('http://localhost:3000/api/products/featured')
         ]);
-        setCategories(catRes.data);
-        setFeaturedProducts(prodRes.data);
+
+        setCategories(normalizeList(catRes.data));
+        setFeaturedProducts(normalizeList(prodRes.data));
       } catch (error) {
         console.error('Lỗi khi lấy dữ liệu:', error);
       } finally {
