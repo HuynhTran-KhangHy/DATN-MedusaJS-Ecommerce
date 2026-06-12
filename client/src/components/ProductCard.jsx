@@ -1,21 +1,28 @@
 import { Link } from 'react-router-dom';
-import './ProductCard.css';
 
 const ProductCard = ({ product }) => {
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price).replace('₫', 'đ');
   };
 
   return (
     <div className="product-card">
-      <div className="product-image">
-        <img src={product.image || 'https://placehold.co/300x300'} alt={product.name} />
-      </div>
-      <div className="product-info">
-        <span className="product-category">{product.category?.name || product.Category?.name || 'Sản phẩm'}</span>
-        <h3 className="product-name">{product.name}</h3>
-        <p className="product-price">{formatPrice(product.price)}</p>
-        <Link to={`/products/${product.id}`} className="btn-view">Xem chi tiết</Link>
+      <Link to={`/products/${product.id}`} className="product-card-img">
+        <img src={product.image || 'https://via.placeholder.com/600'} alt={product.name} />
+        {product.is_featured && <span className="product-badge badge-new">Mới</span>}
+        <button className="product-card-btn-add btn-add-cart" onClick={(e) => {
+          e.preventDefault();
+          // Add to cart logic will go here
+        }}>
+          <i className="bi bi-plus"></i>
+        </button>
+      </Link>
+      <div className="product-card-body">
+        <div className="product-category">{product.Category?.name || product.category?.name || 'Sản phẩm'}</div>
+        <Link to={`/products/${product.id}`} className="product-name">{product.name}</Link>
+        <div className="product-price-row">
+          <span className="product-price">{formatPrice(product.price || product.base_price)}</span>
+        </div>
       </div>
     </div>
   );

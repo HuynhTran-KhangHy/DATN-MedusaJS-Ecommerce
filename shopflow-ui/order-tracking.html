@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFlow – Theo Dõi Đơn Hàng</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/client/style.css" />
+  <link rel="stylesheet" href="css/client/order-tracking.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">Shop<span>Flow</span></a>
+  <ul class="navbar-nav">
+    <li><a href="index.html">Trang chủ</a></li>
+    <li><a href="products.html">Sản phẩm</a></li>
+    <li><a href="account.html">Tài khoản</a></li>
+  </ul>
+  <div class="navbar-actions">
+    <a href="cart.html" class="btn-icon pos-relative">
+      <i class="bi bi-bag"></i>
+      <span class="badge-count cart-badge-count">3</span>
+    </a>
+    <a href="admin/dashboard.html" class="btn-admin"><i class="bi bi-grid-3x3-gap"></i> Admin Panel</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a><span>/</span>
+      <a href="account.html">Tài khoản</a><span>/</span>
+      <span>Theo dõi đơn hàng</span>
+    </div>
+    <h1>THEO DÕI ĐƠN HÀNG</h1>
+  </div>
+</div>
+
+<section class="section products-section-bg">
+  <div class="container">
+
+    <!-- SEARCH BOX -->
+    <div style="max-width:560px; margin: 0 auto 2.5rem; background: white; border-radius: var(--radius-lg); padding:1.5rem; border:1px solid var(--border)">
+      <div class="fw-700 text-sm" style="text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.8rem">Tra cứu đơn hàng</div>
+      <div style="display:flex; gap:0.6rem">
+        <input type="text" class="form-control" value="#SF2025-8843" placeholder="Nhập mã đơn hàng..." style="flex:1" />
+        <button class="btn btn-primary"><i class="bi bi-search"></i> Tra cứu</button>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 360px; gap: 2rem; align-items: start">
+
+      <!-- MAIN TRACKING -->
+      <div>
+        <!-- ORDER HEADER CARD -->
+        <div style="background:white; border-radius: var(--radius-lg); border:1px solid var(--border); padding:1.5rem; margin-bottom:1.5rem">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.2rem">
+            <div>
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:1px; margin-bottom:0.2rem">Đơn hàng #SF2025-8843</div>
+              <div class="text-xs text-muted">Đặt lúc 09:32 – 24/05/2025</div>
+            </div>
+            <span class="status-badge badge-shipped text-xs" style="padding:0.35rem 0.9rem">Đang vận chuyển</span>
+          </div>
+
+          <!-- TRACKING STEPS -->
+          <div class="tracking-steps">
+            <div class="tracking-step done">
+              <div class="step-icon"><i class="bi bi-check2"></i></div>
+              <div class="step-label">Đã đặt</div>
+            </div>
+            <div class="tracking-step done">
+              <div class="step-icon"><i class="bi bi-check2"></i></div>
+              <div class="step-label">Xác nhận</div>
+            </div>
+            <div class="tracking-step done">
+              <div class="step-icon"><i class="bi bi-check2"></i></div>
+              <div class="step-label">Đóng gói</div>
+            </div>
+            <div class="tracking-step current">
+              <div class="step-icon"><i class="bi bi-truck"></i></div>
+              <div class="step-label">Đang giao</div>
+            </div>
+            <div class="tracking-step">
+              <div class="step-icon"><i class="bi bi-house-check"></i></div>
+              <div class="step-label">Đã nhận</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHIPPING INFO -->
+        <div style="background:white; border-radius: var(--radius-lg); border:1px solid var(--border); padding:1.5rem; margin-bottom:1.5rem">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:1px; margin-bottom:1.2rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:0.5rem">
+            <i class="bi bi-truck"></i> Thông tin vận chuyển
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.2rem">
+            <div>
+              <div class="fw-700 text-xs text-muted" style="text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.3rem">Đơn vị vận chuyển</div>
+              <div style="font-weight:700">GHN – Giao Hàng Nhanh</div>
+            </div>
+            <div>
+              <div class="fw-700 text-xs text-muted" style="text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.3rem">Mã vận đơn</div>
+              <div class="fw-700 text-accent" style="font-family:monospace; font-size:1rem">GHN24050001</div>
+            </div>
+            <div>
+              <div class="fw-700 text-xs text-muted" style="text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.3rem">Dự kiến giao</div>
+              <div style="font-weight:600">26/05/2025</div>
+            </div>
+            <div>
+              <div class="fw-700 text-xs text-muted" style="text-transform:uppercase; letter-spacing:0.5px; margin-bottom:0.3rem">Địa chỉ giao</div>
+              <div class="text-sm" style="line-height:1.5">123 Đường ABC, P.XYZ,<br>Q.1, TP.HCM</div>
+            </div>
+          </div>
+          <button class="btn btn-outline" style="color:var(--dark); border-color:var(--border); font-size:0.8rem; padding:0.5rem 1rem">
+            <i class="bi bi-box-arrow-up-right"></i> Xem trên trang GHN
+          </button>
+        </div>
+
+        <!-- TIMELINE -->
+        <div style="background:white; border-radius: var(--radius-lg); border:1px solid var(--border); padding:1.5rem">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:1px; margin-bottom:1.5rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border)">
+            Lịch sử vận chuyển
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot current"><i class="bi bi-truck"></i></div>
+              <div class="timeline-time">25/05/2025 – 10:45</div>
+              <div class="timeline-desc">Đang trên đường giao hàng</div>
+              <div class="timeline-sub">Nhân viên: Nguyễn Văn Tài – 0901 234 567</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot done"><i class="bi bi-check"></i></div>
+              <div class="timeline-time">25/05/2025 – 08:20</div>
+              <div class="timeline-desc">Đã rời kho phân phối – TP.HCM</div>
+              <div class="timeline-sub">Bưu cục: GHN Quận 1</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot done"><i class="bi bi-check"></i></div>
+              <div class="timeline-time">24/05/2025 – 18:30</div>
+              <div class="timeline-desc">Đơn hàng đến kho trung chuyển</div>
+              <div class="timeline-sub">Kho: GHN Hub Bình Dương</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot done"><i class="bi bi-check"></i></div>
+              <div class="timeline-time">24/05/2025 – 14:00</div>
+              <div class="timeline-desc">Đã lấy hàng từ người bán</div>
+              <div class="timeline-sub">Shipper đã lấy hàng thành công</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot done"><i class="bi bi-check"></i></div>
+              <div class="timeline-time">24/05/2025 – 09:45</div>
+              <div class="timeline-desc">Đơn hàng được xác nhận</div>
+              <div class="timeline-sub">Người bán đã xác nhận đơn hàng</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot done"><i class="bi bi-check"></i></div>
+              <div class="timeline-time">24/05/2025 – 09:32</div>
+              <div class="timeline-desc">Đơn hàng đã được đặt</div>
+              <div class="timeline-sub">Thanh toán thành công qua VNPay</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR: ORDER ITEMS -->
+      <div>
+        <div style="background:white; border-radius:var(--radius-lg); border:1px solid var(--border); padding:1.3rem; position:sticky; top:80px">
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:1px; margin-bottom:1rem; padding-bottom:0.7rem; border-bottom:1px solid var(--border)">
+            Sản phẩm trong đơn
+          </div>
+
+          <div style="display:flex; gap:0.8rem; align-items:center; padding:0.8rem 0; border-bottom:1px solid var(--border)">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=120&q=80" alt="" style="width:56px; height:56px; border-radius:6px; object-fit:cover; background:var(--bg); flex-shrink:0" />
+            <div style="flex:1">
+              <div style="font-weight:600; font-size:0.875rem">Sony WH-1000XM5</div>
+              <div class="text-xs text-muted">Đen · ×1</div>
+              <div class="fw-700 text-sm" style="margin-top:0.2rem">8.490.000đ</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:0.8rem; align-items:center; padding:0.8rem 0">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=120&q=80" alt="" style="width:56px; height:56px; border-radius:6px; object-fit:cover; background:var(--bg); flex-shrink:0" />
+            <div style="flex:1">
+              <div style="font-weight:600; font-size:0.875rem">Apple Watch Ultra 2</div>
+              <div class="text-xs text-muted">Titan / Alpine đen · ×1</div>
+              <div class="fw-700 text-sm" style="margin-top:0.2rem">19.990.000đ</div>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid var(--border); padding-top:0.8rem; margin-top:0.2rem">
+            <div class="flex-between text-xs text-muted" style="padding:0.2rem 0">
+              <span>Tạm tính</span><span>28.480.000đ</span>
+            </div>
+            <div class="flex-between text-xs text-muted" style="padding:0.2rem 0">
+              <span>Phí ship</span><span>35.000đ</span>
+            </div>
+            <div class="flex-between text-xs text-success" style="padding:0.2rem 0">
+              <span>Giảm giá</span><span>-500.000đ</span>
+            </div>
+            <div class="flex-between fw-700" style="font-size:0.95rem; padding:0.5rem 0 0; border-top:1px solid var(--border); margin-top:0.3rem">
+              <span>Tổng cộng</span>
+              <span class="text-accent">28.015.000đ</span>
+            </div>
+          </div>
+
+          <div style="margin-top:1.2rem; display:flex; flex-direction:column; gap:0.5rem">
+            <a href="index.html" class="btn btn-primary btn-block btn-sm">
+              <i class="bi bi-bag"></i> Mua tiếp
+            </a>
+            <button class="btn btn-outline btn-block btn-sm" style="color:var(--danger); border-color:var(--danger)">
+              <i class="bi bi-x-circle"></i> Yêu cầu hủy đơn
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none; padding-top:0">
+      <span>© 2026 ShopFlow. FPT Polytechnic – Nhóm 5.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/client/main.js"></script>
+</body>
+</html>

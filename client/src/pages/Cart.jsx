@@ -1,26 +1,79 @@
+import { Link } from 'react-router-dom';
+
 const Cart = () => {
   return (
-    <div>
-      <h1 style={{marginBottom: '30px'}}>Giỏ hàng của bạn</h1>
-      <div style={{display: 'flex', gap: '30px'}}>
-        <div style={{flex: 1, background: 'white', borderRadius: '15px', padding: '20px', boxShadow: 'var(--shadow)'}}>
-          <p style={{textAlign: 'center', padding: '40px', color: 'var(--text-muted)'}}>
-            Giỏ hàng đang trống. <a href="/products" style={{color: 'var(--primary)'}}>Tiếp tục mua sắm</a>
-          </p>
+    <div className="container section">
+      <div className="section-header">
+        <h1 className="section-title">GIỎ HÀNG CỦA BẠN</h1>
+        <p className="section-subtitle">Kiểm tra lại sản phẩm trước khi thanh toán</p>
+      </div>
+
+      <div className="cart-layout">
+        {/* Danh sách sản phẩm */}
+        <div className="cart-items">
+          <div className="cart-item">
+            <div className="cart-item-img">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80" alt="product" />
+            </div>
+            <div className="cart-item-info">
+              <div className="cart-item-name">Wireless Over-Ear Studio Pro</div>
+              <div className="cart-item-variant">Màu: Titan Đen / Size: 256GB</div>
+              <div className="cart-item-price">8.990.000đ</div>
+            </div>
+            <div className="qty-control" style={{ transform: 'scale(0.8)' }}>
+              <button className="qty-btn">-</button>
+              <input type="text" className="qty-value" value="1" readOnly />
+              <button className="qty-btn">+</button>
+            </div>
+            <button className="cart-item-remove"><i className="bi bi-trash"></i></button>
+          </div>
+
+          <div className="cart-item">
+            <div className="cart-item-img">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80" alt="product" />
+            </div>
+            <div className="cart-item-info">
+              <div className="cart-item-name">Luxury Smart Chrono</div>
+              <div className="cart-item-variant">Màu: Gold / Size: 44mm</div>
+              <div className="cart-item-price">12.500.000đ</div>
+            </div>
+            <div className="qty-control" style={{ transform: 'scale(0.8)' }}>
+              <button className="qty-btn">-</button>
+              <input type="text" className="qty-value" value="2" readOnly />
+              <button className="qty-btn">+</button>
+            </div>
+            <button className="cart-item-remove"><i className="bi bi-trash"></i></button>
+          </div>
         </div>
-        <aside style={{width: '350px', background: 'white', borderRadius: '15px', padding: '25px', boxShadow: 'var(--shadow)', height: 'fit-content'}}>
-          <h2 style={{marginBottom: '20px'}}>Tổng cộng</h2>
-          <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '10px'}}>
+
+        {/* Tổng kết đơn hàng */}
+        <aside className="cart-summary">
+          <h3 style={{ borderBottom: '2px solid var(--dark)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>TỔNG CỘNG</h3>
+          <div className="summary-row">
             <span>Tạm tính</span>
-            <span>0đ</span>
+            <span>21.490.000đ</span>
           </div>
-          <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '20px', fontWeight: '700', fontSize: '1.2rem', paddingTop: '15px', borderTop: '1px solid var(--border)'}}>
-            <span>Tổng tiền</span>
-            <span>0đ</span>
+          <div className="summary-row">
+            <span>Phí vận chuyển</span>
+            <span style={{ color: 'var(--success)', fontWeight: 600 }}>Miễn phí</span>
           </div>
-          <button style={{width: '100%', padding: '15px', background: 'var(--primary)', color: 'white', borderRadius: '10px', fontWeight: '600'}}>
-            Thanh toán
+          <div className="summary-row total">
+            <span>Tổng số tiền</span>
+            <span style={{ fontSize: '1.5rem', color: 'var(--accent)' }}>21.490.000đ</span>
+          </div>
+
+          <div className="coupon-input">
+            <input type="text" className="price-input" placeholder="Mã giảm giá..." />
+            <button className="btn btn-primary" style={{ padding: '0.5rem 1rem' }}>ÁP DỤNG</button>
+          </div>
+
+          <button className="btn btn-primary btn-block" style={{ marginTop: '1rem', height: '50px' }}>
+            TIẾN HÀNH THANH TOÁN
           </button>
+          
+          <Link to="/products" className="btn btn-outline btn-block" style={{ marginTop: '1rem', color: 'var(--dark)', borderColor: 'var(--dark)' }}>
+            TIẾP TỤC MUA SẮM
+          </Link>
         </aside>
       </div>
     </div>

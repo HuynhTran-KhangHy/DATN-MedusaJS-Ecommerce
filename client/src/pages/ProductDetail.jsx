@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './ProductDetail.css';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   
-  // States cho biến thể đã chọn
   const [selectedColor, setSelectedColor] = useState('');
   const [selectedSize, setSelectedSize] = useState('');
   const [currentVariant, setCurrentVariant] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -37,7 +36,6 @@ const ProductDetail = () => {
     fetchProduct();
   }, [id]);
 
-  // Tìm biến thể khớp với Color và Size đang chọn
   useEffect(() => {
     if (product?.variants) {
       const match = product.variants.find(v => v.color === selectedColor && v.size === selectedSize);
@@ -46,97 +44,118 @@ const ProductDetail = () => {
   }, [selectedColor, selectedSize, product]);
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price).replace('₫', 'đ');
   };
 
-  if (loading) return <div className="container">Đang tải sản phẩm...</div>;
-  if (!product) return <div className="container">Không tìm thấy sản phẩm.</div>;
+  if (loading) return <div className="container section">Đang tải sản phẩm...</div>;
+  if (!product) return <div className="container section">Không tìm thấy sản phẩm.</div>;
 
   // Lấy danh sách Color và Size duy nhất từ các biến thể
   const variants = Array.isArray(product?.variants) ? product.variants : [];
   const colors = [...new Set(variants.map(v => v.color))].filter(Boolean);
   const sizes = [...new Set(variants.map(v => v.size))].filter(Boolean);
 
-  // Hiển thị giá và ảnh: Ưu tiên theo biến thể, nếu k có thì lấy của sản phẩm gốc
   const displayPrice = currentVariant ? currentVariant.price : product.price;
   const displayImage = currentVariant?.image ? currentVariant.image : product.image;
   const isOutOfStock = currentVariant ? currentVariant.stock === 0 : false;
 
   return (
-    <div className="product-detail-container page-transition">
-      {/* Cột trái: Hình ảnh */}
-      <div className="product-gallery">
-        <div className="main-image">
-          <img src={displayImage} alt={product.name} />
-        </div>
-      </div>
-
-      {/* Cột phải: Thông tin */}
-      <div className="product-info-details">
-        <span className="category-tag">{product.category?.name || product.Category?.name || 'Sản phẩm'}</span>
-        <h1>{product.name}</h1>
-        
-        <div className="rating">
-          <span>⭐⭐⭐⭐⭐</span>
-          <span>(120 đánh giá)</span>
-        </div>
-
-        <div className="current-price">{formatPrice(displayPrice)}</div>
-
-        <div className="description-box">
-          <p>{product.description}</p>
-        </div>
-
-        {/* Lựa chọn biến thể */}
-        <div className="variant-selection">
-          {colors.length > 0 && (
-            <div className="variant-group">
-              <label>Màu sắc: {selectedColor}</label>
-              <div className="option-list">
-                {colors.map(color => (
-                  <button 
-                    key={color}
-                    className={`option-btn ${selectedColor === color ? 'active' : ''}`}
-                    onClick={() => setSelectedColor(color)}
-                  >
-                    {color}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {sizes.length > 0 && (
-            <div className="variant-group">
-              <label>Kích thước: {selectedSize}</label>
-              <div className="option-list">
-                {sizes.map(size => (
-                  <button 
-                    key={size}
-                    className={`option-btn ${selectedSize === size ? 'active' : ''}`}
-                    onClick={() => setSelectedSize(size)}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Trạng thái kho */}
-        {currentVariant && (
-          <div className={`stock-status ${isOutOfStock ? 'stock-out' : 'stock-in'}`}>
-            {isOutOfStock ? '❌ Hết hàng' : `✅ Còn hàng (${currentVariant.stock} sản phẩm)`}
+    <div className="container section">
+      <div className="product-detail-grid">
+        {/* Cột trái: Hình ảnh */}
+        <div className="product-gallery">
+          <div className="product-gallery-main">
+            <img src={displayImage} alt={product.name} />
           </div>
-        )}
+          <div className="product-thumbnails">
+            <div className="thumb active"><img src={displayImage} alt="thumb" /></div>
+            {product.variants.filter(v => v.image && v.image !== displayImage).map((v, i) => (
+              <div key={i} className="thumb"><img src={v.image} alt="thumb" /></div>
+            ))}
+          </div>
+        </div>
 
-        {/* Hành động mua hàng */}
-        <div className="purchase-actions">
-          <button className="btn-add-cart" disabled={isOutOfStock || !currentVariant}>
-            {isOutOfStock ? 'Hết hàng' : 'Thêm vào giỏ hàng'}
-          </button>
-          <button className="btn-wishlist">❤️</button>
+        {/* Cột phải: Thông tin */}
+        <div className="product-info">
+          <div className="product-detail-cat">{product.Category?.name}</div>
+          <h1 className="product-detail-title">{product.name}</h1>
+          <div className="product-detail-price">
+            {formatPrice(displayPrice)}
+            {/* <span>{formatPrice(displayPrice * 1.2)}</span> */}
+          </div>
+
+          <p className="hero-desc" style={{ color: 'var(--gray)', marginBottom: '2rem' }}>
+            {product.description}
+          </p>
+
+          <div className="variant-section">
+            {colors.length > 0 && (
+              <>
+                <div className="variant-label">MÀU SẮC: {selectedColor}</div>
+                <div className="variant-options" style={{ marginBottom: '1.5rem' }}>
+                  {colors.map(color => (
+                    <button 
+                      key={color}
+                      className={`variant-btn ${selectedColor === color ? 'active' : ''}`}
+                      onClick={() => setSelectedColor(color)}
+                    >
+                      {color}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {sizes.length > 0 && (
+              <>
+                <div className="variant-label">DUNG LƯỢNG / KÍCH THƯỚC: {selectedSize}</div>
+                <div className="variant-options">
+                  {sizes.map(size => (
+                    <button 
+                      key={size}
+                      className={`variant-btn ${selectedSize === size ? 'active' : ''}`}
+                      onClick={() => setSelectedSize(size)}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          <div className="variant-section">
+            <div className="variant-label">Số lượng</div>
+            <div className="qty-control">
+              <button className="qty-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>-</button>
+              <input type="text" className="qty-value" value={quantity} readOnly />
+              <button className="qty-btn" onClick={() => setQuantity(q => q + 1)}>+</button>
+            </div>
+          </div>
+
+          <div className="product-actions">
+            <button className="btn btn-primary" disabled={isOutOfStock || !currentVariant}>
+              {isOutOfStock ? 'HẾT HÀNG' : 'THÊM VÀO GIỎ HÀNG'}
+            </button>
+            <button className="btn-icon" style={{ border: '1.5px solid #eee', width: '50px', height: '50px' }}>
+              <i className="bi bi-heart"></i>
+            </button>
+          </div>
+
+          <div className="product-meta">
+            <div className="product-meta-row">
+              <strong>Tình trạng:</strong>
+              <span style={{ color: isOutOfStock ? 'var(--danger)' : 'var(--success)', fontWeight: 600 }}>
+                {isOutOfStock ? 'Hết hàng' : `Còn hàng (${currentVariant?.stock || 0})`}
+              </span>
+            </div>
+            <div className="product-meta-row">
+              <strong>Mã sản phẩm:</strong> <span>SF-{product.id}-{currentVariant?.id || 'BASE'}</span>
+            </div>
+            <div className="product-meta-row">
+              <strong>Giao hàng:</strong> <span>Miễn phí vận chuyển toàn quốc</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
