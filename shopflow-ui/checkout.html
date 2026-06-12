@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFlow – Thanh Toán</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/client/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">Shop<span>Flow</span></a>
+  <div class="flex-center text-sm">
+    <span class="fw-700 text-accent"><i class="bi bi-bag-check"></i> An toàn & Bảo mật</span>
+  </div>
+  <a href="cart.html" class="btn-icon"><i class="bi bi-x-lg"></i></a>
+</nav>
+
+<section class="section products-section-bg">
+  <div class="container">
+    <!-- STEPS -->
+    <div style="max-width: 500px; margin: 0 auto 2.5rem">
+      <div class="tracking-steps">
+        <div class="tracking-step done">
+          <div class="step-icon"><i class="bi bi-bag-check"></i></div>
+          <div class="step-label">Giỏ hàng</div>
+        </div>
+        <div class="tracking-step current">
+          <div class="step-icon"><i class="bi bi-credit-card"></i></div>
+          <div class="step-label">Thanh toán</div>
+        </div>
+        <div class="tracking-step">
+          <div class="step-icon"><i class="bi bi-check2"></i></div>
+          <div class="step-label">Xác nhận</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkout-layout">
+
+      <!-- LEFT: FORM -->
+      <div>
+        <!-- Thông tin giao hàng -->
+        <div class="checkout-section">
+          <div class="checkout-section-title">
+            <i class="bi bi-geo-alt"></i> Thông tin giao hàng
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Họ và tên *</label>
+              <input type="text" class="form-control" placeholder="Nguyễn Văn A" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Số điện thoại *</label>
+              <input type="tel" class="form-control" placeholder="0912 345 678" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input type="email" class="form-control" placeholder="email@example.com" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Tỉnh / Thành phố *</label>
+              <select class="form-control">
+                <option value="">Chọn tỉnh/thành...</option>
+                <option>Hồ Chí Minh</option>
+                <option>Hà Nội</option>
+                <option>Đà Nẵng</option>
+                <option>Cần Thơ</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Quận / Huyện *</label>
+              <select class="form-control">
+                <option value="">Chọn quận/huyện...</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Phường / Xã *</label>
+              <select class="form-control">
+                <option value="">Chọn phường/xã...</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Địa chỉ chi tiết *</label>
+              <input type="text" class="form-control" placeholder="Số nhà, tên đường..." />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ghi chú đơn hàng</label>
+            <textarea class="form-control" rows="2" placeholder="Ghi chú thêm cho người giao hàng..."></textarea>
+          </div>
+        </div>
+
+        <!-- Đơn vị vận chuyển -->
+        <div class="checkout-section">
+          <div class="checkout-section-title">
+            <i class="bi bi-truck"></i> Đơn vị vận chuyển
+          </div>
+          <div class="shipping-option selected">
+            <input type="radio" name="shipping" checked />
+            <div class="shipping-option-info">
+              <div class="shipping-option-name"><img src="" alt="" style="height:18px; vertical-align:middle; margin-right:0.4rem">GHN – Giao Hàng Nhanh</div>
+              <div class="shipping-option-desc">Dự kiến: 1–2 ngày | Giao tận nơi</div>
+            </div>
+            <div class="shipping-option-price">35.000đ</div>
+          </div>
+          <div class="shipping-option">
+            <input type="radio" name="shipping" />
+            <div class="shipping-option-info">
+              <div class="shipping-option-name">GHTK – Giao Hàng Tiết Kiệm</div>
+              <div class="shipping-option-desc">Dự kiến: 2–3 ngày | Giao tận nơi</div>
+            </div>
+            <div class="shipping-option-price">22.000đ</div>
+          </div>
+        </div>
+
+        <!-- Phương thức thanh toán -->
+        <div class="checkout-section">
+          <div class="checkout-section-title">
+            <i class="bi bi-credit-card"></i> Phương thức thanh toán
+          </div>
+          <div class="payment-method-list">
+            <div class="payment-method selected">
+              <input type="radio" name="payment" checked />
+              <div class="payment-method-icon"><i class="bi bi-credit-card-2-front"></i></div>
+              <div>
+                <div class="payment-method-name">VNPay</div>
+                <div class="text-xs text-muted">Thẻ ATM, tín dụng, QR Code</div>
+              </div>
+            </div>
+            <div class="payment-method">
+              <input type="radio" name="payment" />
+              <div class="payment-method-icon">🟣</div>
+              <div>
+                <div class="payment-method-name">Ví MoMo</div>
+                <div class="text-xs text-muted">Thanh toán qua ví MoMo</div>
+              </div>
+            </div>
+            <div class="payment-method">
+              <input type="radio" name="payment" />
+              <div class="payment-method-icon">🔵</div>
+              <div>
+                <div class="payment-method-name">ZaloPay</div>
+                <div class="text-xs text-muted">Thanh toán qua ví ZaloPay</div>
+              </div>
+            </div>
+            <div class="payment-method">
+              <input type="radio" name="payment" />
+              <div class="payment-method-icon"><i class="bi bi-cash-stack"></i></div>
+              <div>
+                <div class="payment-method-name">COD – Tiền mặt khi nhận hàng</div>
+                <div class="text-xs text-muted">Thanh toán khi giao hàng</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: ORDER SUMMARY -->
+      <div>
+        <div class="cart-summary" style="top: 80px">
+          <h3>ĐƠN HÀNG CỦA BẠN</h3>
+
+          <!-- Items -->
+          <div style="max-height: 260px; overflow-y: auto; margin-bottom: 1rem">
+            <div style="display:flex; gap:0.8rem; padding:0.8rem 0; border-bottom:1px solid var(--border); align-items:center">
+              <div class="checkout-mini-img">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=80" alt="" />
+                <span class="checkout-qty-badge">1</span>
+              </div>
+              <div class="text-sm" style="flex:1">Sony WH-1000XM5 – Đen</div>
+              <div class="fw-700 text-sm">8.490.000đ</div>
+            </div>
+            <div style="display:flex; gap:0.8rem; padding:0.8rem 0; border-bottom:1px solid var(--border); align-items:center">
+              <div class="checkout-mini-img">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80" alt="" />
+                <span class="checkout-qty-badge">1</span>
+              </div>
+              <div class="text-sm" style="flex:1">Apple Watch Ultra 2</div>
+              <div class="fw-700 text-sm">19.990.000đ</div>
+            </div>
+            <div style="display:flex; gap:0.8rem; padding:0.8rem 0; align-items:center">
+              <div class="checkout-mini-img">
+                <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=100&q=80" alt="" />
+                <span class="checkout-qty-badge">2</span>
+              </div>
+              <div class="text-sm" style="flex:1">Portable SoundBox Extreme</div>
+              <div class="fw-700 text-sm">8.500.000đ</div>
+            </div>
+          </div>
+
+          <div class="coupon-input">
+            <input type="text" placeholder="Mã giảm giá..." />
+            <button class="btn btn-primary btn-sm">Dùng</button>
+          </div>
+
+          <div class="summary-row">
+            <span>Tạm tính</span>
+            <span>36.980.000đ</span>
+          </div>
+          <div class="summary-row">
+            <span>Giảm giá</span>
+            <span class="text-success">-1.500.000đ</span>
+          </div>
+          <div class="summary-row">
+            <span>Phí vận chuyển (GHN)</span>
+            <span>35.000đ</span>
+          </div>
+          <div class="summary-row total">
+            <span>TỔNG THANH TOÁN</span>
+            <span class="text-accent">35.515.000đ</span>
+          </div>
+
+          <button class="btn btn-accent btn-block btn-lg mt-1" onclick="alert('Đặt hàng thành công! 🎉')">
+            <i class="bi bi-lock-fill"></i> ĐẶT HÀNG NGAY
+          </button>
+
+          <p class="text-xs text-muted" style="text-align:center; margin-top:0.8rem">
+            <i class="bi bi-shield-lock"></i> Thông tin được bảo mật SSL
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="js/client/main.js"></script>
+</body>
+</html>

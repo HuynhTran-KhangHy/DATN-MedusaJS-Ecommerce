@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFlow Admin – Mã Giảm Giá</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/admin/admin.css" />
+</head>
+<body>
+
+<aside class="admin-sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-text">Shop<span>Flow</span></div>
+    <div class="sidebar-logo-sub">Admin Panel</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">Tổng quan</div>
+    <a href="dashboard.html" class="sidebar-link"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+    <a href="#" class="sidebar-link"><i class="bi bi-graph-up-arrow"></i> Thống kê</a>
+    <div class="sidebar-section-label">Quản lý</div>
+    <a href="products.html" class="sidebar-link"><i class="bi bi-box-seam"></i> Sản phẩm</a>
+    <a href="orders.html" class="sidebar-link"><i class="bi bi-receipt"></i> Đơn hàng <span class="badge-count">12</span></a>
+    <a href="categories.html" class="sidebar-link"><i class="bi bi-folder2"></i> Danh mục</a>
+    <a href="customers.html" class="sidebar-link"><i class="bi bi-people"></i> Khách hàng</a>
+    <a href="coupons.html" class="sidebar-link active"><i class="bi bi-tag"></i> Mã giảm giá</a>
+    <div class="sidebar-section-label">Vận hành</div>
+    <a href="#" class="sidebar-link"><i class="bi bi-truck"></i> Vận chuyển</a>
+    <a href="#" class="sidebar-link"><i class="bi bi-credit-card"></i> Thanh toán</a>
+    <a href="#" class="sidebar-link"><i class="bi bi-bell"></i> Thông báo <span class="badge-count">3</span></a>
+    <div class="sidebar-section-label">Hệ thống</div>
+    <a href="#" class="sidebar-link"><i class="bi bi-gear"></i> Cài đặt</a>
+    <a href="../index.html" class="sidebar-link"><i class="bi bi-arrow-left"></i> Về trang Client</a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">AD</div>
+      <div><div class="sidebar-user-name">Admin</div><div class="sidebar-user-role">Super Admin</div></div>
+      <a href="../login.html" class="sidebar-logout-link" title="Đăng xuất"><i class="bi bi-box-arrow-right"></i></a>
+    </div>
+  </div>
+</aside>
+
+<main class="admin-main">
+  <header class="admin-topbar">
+    <div class="topbar-title">Mã Giảm Giá</div>
+    <div class="topbar-actions">
+      <div class="admin-search"><i class="bi bi-search"></i><input type="text" placeholder="Tìm mã coupon..." /></div>
+      <button class="topbar-btn"><i class="bi bi-bell"></i><span class="topbar-badge"></span></button>
+      <div class="topbar-user"><div class="topbar-avatar">AD</div><span class="topbar-name">Admin</span></div>
+    </div>
+  </header>
+
+  <div class="admin-content">
+
+    <div class="dash-grid">
+
+      <!-- LEFT: TABLE -->
+      <div>
+        <div class="admin-page-header">
+          <div class="admin-page-header-meta">24 mã giảm giá</div>
+          <button class="admin-btn admin-btn-primary" onclick="document.getElementById('couponForm').style.display='block'">
+            <i class="bi bi-plus-lg"></i> Tạo mã mới
+          </button>
+        </div>
+
+        <!-- FILTER TABS -->
+        <div style="display:flex; gap:0.4rem; margin-bottom:1.2rem; overflow-x:auto">
+          <button class="tab-btn active" style="white-space:nowrap">Tất cả (24)</button>
+          <button class="tab-btn" style="white-space:nowrap">Đang hoạt động (12)</button>
+          <button class="tab-btn" style="white-space:nowrap">Hết hạn (10)</button>
+          <button class="tab-btn" style="white-space:nowrap">Tạm ẩn (2)</button>
+        </div>
+
+        <div class="admin-card">
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Mã coupon</th>
+                  <th>Loại giảm</th>
+                  <th>Giá trị</th>
+                  <th>Đơn tối thiểu</th>
+                  <th>Đã dùng / Giới hạn</th>
+                  <th>Hết hạn</th>
+                  <th>Trạng thái</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="td-avatar-row">
+                      <span class="coupon-code-badge">WELCOME100</span>
+                      <button onclick="navigator.clipboard.writeText('WELCOME100')" class="action-btn-link" title="Sao chép"><i class="bi bi-copy"></i></button>
+                    </div>
+                  </td>
+                  <td><span class="coupon-type-badge">Cố định</span></td>
+                  <td class="td-price">100.000đ</td>
+                  <td class="td-phone">500.000đ</td>
+                  <td>
+                    <div class="fw-600" style="font-size:0.82rem">241 / 500</div>
+                    <div class="progress-bar-wrap">
+                      <div class="progress-bar-fill" style="width:48%; background:var(--info)"></div>
+                    </div>
+                  </td>
+                  <td class="td-muted">31/12/2025</td>
+                  <td><span class="status-badge badge-active">Hoạt động</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-avatar-row">
+                      <span class="coupon-code-badge">SALE20</span>
+                      <button onclick="navigator.clipboard.writeText('SALE20')" class="action-btn-link" title="Sao chép"><i class="bi bi-copy"></i></button>
+                    </div>
+                  </td>
+                  <td><span class="coupon-type-badge percent">Phần trăm</span></td>
+                  <td class="td-price">20%</td>
+                  <td class="td-phone">2.000.000đ</td>
+                  <td>
+                    <div class="fw-600" style="font-size:0.82rem">89 / 200</div>
+                    <div class="progress-bar-wrap">
+                      <div class="progress-bar-fill" style="width:44%; background:var(--accent)"></div>
+                    </div>
+                  </td>
+                  <td class="td-muted">30/06/2025</td>
+                  <td><span class="status-badge badge-active">Hoạt động</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-avatar-row">
+                      <span class="coupon-code-badge">FREESHIP</span>
+                      <button onclick="navigator.clipboard.writeText('FREESHIP')" class="action-btn-link" title="Sao chép"><i class="bi bi-copy"></i></button>
+                    </div>
+                  </td>
+                  <td><span class="coupon-type-badge shipping">Phí ship</span></td>
+                  <td class="td-price">Miễn phí</td>
+                  <td class="td-phone">1.000.000đ</td>
+                  <td>
+                    <div class="fw-600" style="font-size:0.82rem">512 / ∞</div>
+                    <div class="progress-bar-wrap">
+                      <div class="progress-bar-fill" style="width:20%; background:var(--success)"></div>
+                    </div>
+                  </td>
+                  <td class="td-muted">31/12/2025</td>
+                  <td><span class="status-badge badge-active">Hoạt động</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr style="opacity:0.6">
+                  <td>
+                    <div class="td-avatar-row">
+                      <span class="coupon-code-badge" style="color:var(--gray)">TET2025</span>
+                    </div>
+                  </td>
+                  <td><span class="coupon-type-badge percent">Phần trăm</span></td>
+                  <td class="td-price">30%</td>
+                  <td class="td-phone">3.000.000đ</td>
+                  <td>
+                    <div class="fw-600" style="font-size:0.82rem">1000 / 1000</div>
+                    <div class="progress-bar-wrap">
+                      <div class="progress-bar-fill" style="width:100%; background:var(--danger)"></div>
+                    </div>
+                  </td>
+                  <td class="td-muted" style="color:var(--danger); font-weight:600">Hết hạn</td>
+                  <td><span class="status-badge badge-cancelled">Hết hạn</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr style="opacity:0.6">
+                  <td>
+                    <div class="td-avatar-row">
+                      <span class="coupon-code-badge" style="color:var(--gray)">SUMMER50</span>
+                    </div>
+                  </td>
+                  <td><span class="coupon-type-badge percent">Phần trăm</span></td>
+                  <td class="td-price">50%</td>
+                  <td class="td-phone">5.000.000đ</td>
+                  <td>
+                    <div class="fw-600" style="font-size:0.82rem">350 / 350</div>
+                    <div class="progress-bar-wrap">
+                      <div class="progress-bar-fill" style="width:100%; background:var(--danger)"></div>
+                    </div>
+                  </td>
+                  <td class="td-muted" style="color:var(--danger); font-weight:600">Đã dùng hết</td>
+                  <td><span class="status-badge badge-inactive">Đã ẩn</span></td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                      <button class="action-btn delete"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-footer">
+            <span class="table-footer-info">Hiển thị 1–5 / 24 mã</span>
+            <div class="pagination">
+              <button class="page-btn"><i class="bi bi-chevron-left"></i></button>
+              <button class="page-btn active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <button class="page-btn"><i class="bi bi-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: FORM -->
+      <div id="couponForm">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title">Tạo mã giảm giá mới</div>
+          </div>
+          <div class="admin-card-body">
+            <div class="admin-form-group">
+              <label class="admin-form-label">Mã coupon *</label>
+              <div style="display:flex; gap:0.5rem">
+                <input type="text" class="admin-form-control coupon-code-input" id="couponCode" placeholder="VD: SALE20" />
+                <button class="admin-btn admin-btn-outline" onclick="genCode()" title="Tạo ngẫu nhiên"><i class="bi bi-arrow-repeat"></i></button>
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">Loại giảm giá *</label>
+              <div style="display:flex; gap:0.6rem">
+                <label class="form-radio-card">
+                  <input type="radio" name="dtype" value="percent" checked /> Phần trăm (%)
+                </label>
+                <label class="form-radio-card">
+                  <input type="radio" name="dtype" value="fixed" /> Cố định (đ)
+                </label>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="admin-form-group">
+                <label class="admin-form-label">Giá trị giảm *</label>
+                <input type="number" class="admin-form-control" placeholder="20" />
+              </div>
+              <div class="admin-form-group">
+                <label class="admin-form-label">Giảm tối đa (đ)</label>
+                <input type="number" class="admin-form-control" placeholder="500.000" />
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">Đơn hàng tối thiểu (đ)</label>
+              <input type="number" class="admin-form-control" placeholder="Để trống = không giới hạn" />
+            </div>
+
+            <div class="grid-2">
+              <div class="admin-form-group">
+                <label class="admin-form-label">Giới hạn lượt dùng</label>
+                <input type="number" class="admin-form-control" placeholder="Để trống = vô hạn" />
+              </div>
+              <div class="admin-form-group">
+                <label class="admin-form-label">Mỗi người tối đa</label>
+                <input type="number" class="admin-form-control" placeholder="1" value="1" />
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div class="admin-form-group">
+                <label class="admin-form-label">Ngày bắt đầu</label>
+                <input type="datetime-local" class="admin-form-control" />
+              </div>
+              <div class="admin-form-group">
+                <label class="admin-form-label">Ngày hết hạn</label>
+                <input type="datetime-local" class="admin-form-control" />
+              </div>
+            </div>
+
+            <div class="admin-form-group">
+              <label class="admin-form-label">Trạng thái</label>
+              <div class="form-radio-group">
+                <label class="form-radio-label">
+                  <input type="radio" name="cStatus" value="1" checked class="admin-checkbox" /> Hoạt động
+                </label>
+                <label class="form-radio-label">
+                  <input type="radio" name="cStatus" value="0" class="admin-checkbox" /> Tạm ẩn
+                </label>
+              </div>
+            </div>
+
+            <!-- PREVIEW -->
+            <div class="coupon-preview-card">
+              <div class="coupon-preview-title">Xem trước</div>
+              <div class="coupon-preview-body">
+                <div class="coupon-preview-code">SALE20</div>
+                <div>
+                  <div class="coupon-preview-details">Giảm 20% (tối đa 500K)</div>
+                  <div class="coupon-preview-sub">Đơn từ 2.000.000đ • HSD: 30/06/2025</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-action-row">
+              <button class="admin-btn admin-btn-primary" style="flex:1"><i class="bi bi-check-lg"></i> Tạo mã</button>
+              <button class="admin-btn admin-btn-outline" onclick="document.getElementById('couponForm').style.display='none'">Hủy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="../js/client/main.js"></script>
+<script src="../js/admin/admin-coupons.js"></script>
+</body>
+</html>

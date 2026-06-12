@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
-import './Products.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // States cho Lọc và Phân trang
   const [filters, setFilters] = useState({
     categoryId: '',
     minPrice: '',
@@ -20,7 +18,6 @@ const Products = () => {
     totalItems: 0
   });
 
-  // Lấy danh mục để hiển thị ở Sidebar
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -33,14 +30,13 @@ const Products = () => {
     fetchCategories();
   }, []);
 
-  // Lấy dữ liệu sản phẩm khi Filter hoặc Page thay đổi
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
         const params = {
           page: pagination.page,
-          limit: 8,
+          limit: 9,
           ...filters
         };
         const res = await axios.get('http://localhost:3000/api/products', { params });
@@ -60,7 +56,7 @@ const Products = () => {
       }
     };
 
-    const timer = setTimeout(fetchProducts, 300); // Debounce để tránh gọi API quá nhiều
+    const timer = setTimeout(fetchProducts, 300);
     return () => clearTimeout(timer);
   }, [filters, pagination.page]);
 
@@ -78,97 +74,113 @@ const Products = () => {
   };
 
   return (
-    <div className="products-page">
-      {/* Sidebar Lọc */}
-      <aside className="filters-sidebar">
-        <div className="filter-group">
-          <h3>Danh mục</h3>
-          <div className="category-list">
+    <div className="container section">
+      <div className="products-layout">
+        {/* Sidebar Lọc */}
+        <aside className="filter-sidebar">
+          <div className="filter-title">
+            <i className="bi bi-filter-left"></i> BỘ LỌC TÌM KIẾM
+          </div>
+          
+          <div className="filter-section">
+            <div className="filter-section-title">Danh mục</div>
             {categories.map(cat => (
-              <label key={cat.id} className={`category-item ${filters.categoryId === cat.id ? 'active' : ''}`}>
+              <label key={cat.id} className="filter-check">
                 <input 
                   type="checkbox" 
                   checked={filters.categoryId === cat.id}
                   onChange={() => handleCategoryChange(cat.id)}
                 />
-                {cat.name}
+                <span>{cat.name}</span>
               </label>
             ))}
           </div>
-        </div>
 
-        <div className="filter-group">
-          <h3>Khoảng giá</h3>
-          <div className="price-inputs">
-            <input 
-              type="number" 
-              placeholder="Từ" 
-              value={filters.minPrice}
-              onChange={(e) => setFilters(prev => ({ ...prev, minPrice: e.target.value }))}
-            />
-            <span>-</span>
-            <input 
-              type="number" 
-              placeholder="Đến" 
-              value={filters.maxPrice}
-              onChange={(e) => setFilters(prev => ({ ...prev, maxPrice: e.target.value }))}
-            />
+          <div className="filter-section">
+            <div className="filter-section-title">Khoảng giá</div>
+            <div className="price-range">
+              <input 
+                type="number" 
+                className="price-input" 
+                placeholder="Từ" 
+                value={filters.minPrice}
+                onChange={(e) => setFilters(prev => ({ ...prev, minPrice: e.target.value }))}
+              />
+              <span>-</span>
+              <input 
+                type="number" 
+                className="price-input" 
+                placeholder="Đến" 
+                value={filters.maxPrice}
+                onChange={(e) => setFilters(prev => ({ ...prev, maxPrice: e.target.value }))}
+              />
+            </div>
           </div>
-        </div>
 
-        <button className="btn-filter" onClick={() => setPagination(prev => ({...prev, page: 1}))}>
-          Áp dụng
-        </button>
-      </aside>
+          <button className="btn btn-primary btn-block" style={{ marginTop: '1rem' }} onClick={() => setPagination(prev => ({...prev, page: 1}))}>
+            ÁP DỤNG
+          </button>
+        </aside>
 
-      {/* Danh sách sản phẩm */}
-      <main className="products-content">
-        <div className="content-header">
-          <h1>Tất cả sản phẩm</h1>
-          <span className="results-count">Hiển thị {products.length} trong {pagination.totalItems} sản phẩm</span>
-        </div>
+        {/* Danh sách sản phẩm */}
+        <main className="products-content">
+          <div className="products-header">
+            <div className="section-title" style={{ fontSize: '1.5rem', marginBottom: 0 }}>SẢN PHẨM</div>
+            <div className="products-count">Hiển thị {products.length} trên {pagination.totalItems} kết quả</div>
+          </div>
 
-        <div className="products-grid">
-          {loading ? (
-            Array(8).fill(0).map((_, i) => <div key={i} className="skeleton-card"></div>)
-          ) : products.length > 0 ? (
-            products.map(product => (
-              <ProductCard key={product.id} product={product} />
-            ))
-          ) : (
-            <div style={{gridColumn: '1/-1', textAlign: 'center', padding: '50px'}}>
-              <h3>Không tìm thấy sản phẩm nào khớp với bộ lọc.</h3>
+          <div className="products-grid">
+            {loading ? (
+              Array(6).fill(0).map((_, i) => <div key={i} className="skeleton-card" style={{ height: '350px', background: '#f1f5f9', borderRadius: '10px' }}></div>)
+            ) : products.length > 0 ? (
+              products.map(product => (
+                <ProductCard key={product.id} product={product} />
+              ))
+            ) : (
+              <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '100px 0' }}>
+                <i className="bi bi-search" style={{ fontSize: '3rem', color: '#ccc', display: 'block', marginBottom: '1rem' }}></i>
+                <p>Không tìm thấy sản phẩm nào phù hợp.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Phân trang */}
+          {pagination.totalPages > 1 && (
+            <div className="pagination" style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', marginTop: '3rem' }}>
+              <button 
+                className="btn-icon"
+                disabled={pagination.page === 1}
+                onClick={() => handlePageChange(pagination.page - 1)}
+                style={{ border: '1px solid #eee' }}
+              >
+                <i className="bi bi-chevron-left"></i>
+              </button>
+              {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(p => (
+                <button 
+                  key={p}
+                  className={`btn-icon ${pagination.page === p ? 'active' : ''}`}
+                  onClick={() => handlePageChange(p)}
+                  style={{ 
+                    border: '1px solid #eee',
+                    background: pagination.page === p ? 'var(--dark)' : 'white',
+                    color: pagination.page === p ? 'white' : 'var(--dark)'
+                  }}
+                >
+                  {p}
+                </button>
+              ))}
+              <button 
+                className="btn-icon"
+                disabled={pagination.page === pagination.totalPages}
+                onClick={() => handlePageChange(pagination.page + 1)}
+                style={{ border: '1px solid #eee' }}
+              >
+                <i className="bi bi-chevron-right"></i>
+              </button>
             </div>
           )}
-        </div>
-
-        {/* Phân trang */}
-        {pagination.totalPages > 1 && (
-          <div className="pagination">
-            <button 
-              disabled={pagination.page === 1}
-              onClick={() => handlePageChange(pagination.page - 1)}
-            >
-              &lt;
-            </button>
-            {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(p => (
-              <button 
-                key={p}
-                className={pagination.page === p ? 'active' : ''}
-                onClick={() => handlePageChange(p)}
-              >
-                {p}
-              </button>
-            ))}
-            <button 
-              disabled={pagination.page === pagination.totalPages}
-              onClick={() => handlePageChange(pagination.page + 1)}
-            >
-              &gt;
-            </button>
-          </div>
-        )}
-      </main>
+        </main>
+      </div>
     </div>
   );
 };

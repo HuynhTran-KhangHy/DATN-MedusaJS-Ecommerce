@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFlow Admin – Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/admin/admin.css" />
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="admin-sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-text">Shop<span>Flow</span></div>
+    <div class="sidebar-logo-sub">Admin Panel</div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">Tổng quan</div>
+    <a href="dashboard.html" class="sidebar-link active">
+      <i class="bi bi-grid-1x2"></i> Dashboard
+    </a>
+    <a href="#" class="sidebar-link">
+      <i class="bi bi-graph-up-arrow"></i> Thống kê
+    </a>
+
+    <div class="sidebar-section-label">Quản lý</div>
+    <a href="products.html" class="sidebar-link">
+      <i class="bi bi-box-seam"></i> Sản phẩm
+    </a>
+    <a href="orders.html" class="sidebar-link">
+      <i class="bi bi-receipt"></i> Đơn hàng
+      <span class="badge-count">12</span>
+    </a>
+    <a href="categories.html" class="sidebar-link">
+      <i class="bi bi-folder2"></i> Danh mục
+    </a>
+    <a href="#" class="sidebar-link">
+      <i class="bi bi-people"></i> Khách hàng
+    </a>
+    <a href="#" class="sidebar-link">
+      <i class="bi bi-tag"></i> Mã giảm giá
+    </a>
+
+    <div class="sidebar-section-label">Vận hành</div>
+    <a href="#" class="sidebar-link">
+      <i class="bi bi-truck"></i> Vận chuyển
+    </a>
+    <a href="#" class="sidebar-link">
+      <i class="bi bi-credit-card"></i> Thanh toán
+    </a>
+    <a href="#" class="sidebar-link">
+      <i class="bi bi-bell"></i> Thông báo
+      <span class="badge-count">3</span>
+    </a>
+
+    <div class="sidebar-section-label">Hệ thống</div>
+    <a href="#" class="sidebar-link">
+      <i class="bi bi-gear"></i> Cài đặt
+    </a>
+    <a href="../index.html" class="sidebar-link">
+      <i class="bi bi-arrow-left"></i> Về trang Client
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">AD</div>
+      <div>
+        <div class="sidebar-user-name">Admin</div>
+        <div class="sidebar-user-role">Super Admin</div>
+      </div>
+      <a href="../login.html" class="sidebar-logout-link" title="Đăng xuất"><i class="bi bi-box-arrow-right"></i></a>
+    </div>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<main class="admin-main">
+
+  <!-- TOPBAR -->
+  <header class="admin-topbar">
+    <div class="topbar-title">Tổng quan</div>
+    <div class="topbar-actions">
+      <div class="admin-search">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Tìm kiếm..." />
+      </div>
+      <button class="topbar-btn" title="Thông báo">
+        <i class="bi bi-bell"></i>
+        <span class="topbar-badge"></span>
+      </button>
+      <button class="topbar-btn" title="Cài đặt"><i class="bi bi-gear"></i></button>
+      <div class="topbar-user">
+        <div class="topbar-avatar">AD</div>
+        <span class="topbar-name">Admin</span>
+        <i class="bi bi-chevron-down topbar-chevron"></i>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-content">
+
+    <!-- DATE & GREETING -->
+    <div class="admin-page-header">
+      <div>
+        <div class="admin-page-header-meta">Thứ Hai, 01 tháng 06, 2026</div>
+        <div class="fw-700" style="font-size:1.1rem">Chào buổi sáng, Admin! 👋</div>
+      </div>
+      <div class="admin-page-header-actions">
+        <button class="admin-btn admin-btn-outline"><i class="bi bi-download"></i> Xuất báo cáo</button>
+        <a href="products.html" class="admin-btn admin-btn-primary"><i class="bi bi-plus-lg"></i> Thêm sản phẩm</a>
+      </div>
+    </div>
+
+    <!-- STAT CARDS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon orange"><i class="bi bi-bag-check"></i></div>
+        <div>
+          <div class="stat-value">1,284</div>
+          <div class="stat-label">Đơn hàng mới</div>
+          <div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> +12% so với tháng trước</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green"><i class="bi bi-currency-dollar"></i></div>
+        <div>
+          <div class="stat-value">34.2M</div>
+          <div class="stat-label">Doanh thu tháng</div>
+          <div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> +8.5% so với tháng trước</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon blue"><i class="bi bi-people"></i></div>
+        <div>
+          <div class="stat-value">8,492</div>
+          <div class="stat-label">Khách hàng</div>
+          <div class="stat-trend up"><i class="bi bi-arrow-up-short"></i> +241 người mới</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon dark"><i class="bi bi-box-seam"></i></div>
+        <div>
+          <div class="stat-value">3,847</div>
+          <div class="stat-label">Sản phẩm đang bán</div>
+          <div class="stat-trend down"><i class="bi bi-arrow-down-short"></i> 23 sắp hết hàng</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER STATUS CHIPS -->
+    <div class="order-status-row">
+      <div class="order-status-chip">
+        <div class="order-status-chip-count chip-count-warning">127</div>
+        <div class="order-status-chip-label">Chờ xác nhận</div>
+      </div>
+      <div class="order-status-chip">
+        <div class="order-status-chip-count chip-count-info">84</div>
+        <div class="order-status-chip-label">Đang xử lý</div>
+      </div>
+      <div class="order-status-chip">
+        <div class="order-status-chip-count chip-count-purple">203</div>
+        <div class="order-status-chip-label">Đang giao</div>
+      </div>
+      <div class="order-status-chip">
+        <div class="order-status-chip-count chip-count-success">862</div>
+        <div class="order-status-chip-label">Đã giao</div>
+      </div>
+      <div class="order-status-chip">
+        <div class="order-status-chip-count chip-count-danger">8</div>
+        <div class="order-status-chip-label">Đã hủy</div>
+      </div>
+    </div>
+
+    <!-- MAIN GRID: TABLE + MINI STATS -->
+    <div class="dash-grid">
+
+      <!-- RECENT ORDERS -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <div class="admin-card-title">Đơn hàng gần đây</div>
+          <a href="orders.html" class="admin-btn admin-btn-outline admin-btn-sm">Xem tất cả</a>
+        </div>
+      <div class="table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Mã ĐH</th>
+                <th>Khách hàng</th>
+                <th>Sản phẩm</th>
+                <th>Tổng tiền</th>
+                <th>Ngày</th>
+                <th>Trạng thái</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="order-code">#SF2025-8842</span></td>
+                <td>
+                  <div class="td-avatar-row">
+                    <div class="review-avatar" style="background: var(--accent)">TN</div>
+                    Trần Ngọc
+                  </div>
+                </td>
+                <td class="td-muted">Sony WH-1000XM5</td>
+                <td class="td-price">8.490.000đ</td>
+                <td class="td-muted">24/05/2025</td>
+                <td><span class="status-badge badge-processing">Đang xử lý</span></td>
+                <td>
+                  <div class="action-btns">
+                    <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                    <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="order-code">#SF2025-8841</span></td>
+                <td>
+                  <div class="td-avatar-row">
+                    <div class="review-avatar">MH</div>
+                    Minh Hoàng
+                  </div>
+                </td>
+                <td class="td-muted">iPhone 16 Pro + AirPods</td>
+                <td class="td-price">32.840.000đ</td>
+                <td class="td-muted">24/05/2025</td>
+                <td><span class="status-badge badge-pending">Chờ xác nhận</span></td>
+                <td>
+                  <div class="action-btns">
+                    <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                    <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="order-code">#SF2025-8840</span></td>
+                <td>
+                  <div class="td-avatar-row">
+                    <div class="review-avatar" style="background:#3B82F6">LT</div>
+                    Lan Trinh
+                  </div>
+                </td>
+                <td class="td-muted">MacBook Pro M3</td>
+                <td class="td-price">42.990.000đ</td>
+                <td class="td-muted">23/05/2025</td>
+                <td><span class="status-badge badge-shipped">Đang giao</span></td>
+                <td>
+                  <div class="action-btns">
+                    <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                    <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="order-code">#SF2025-8839</span></td>
+                <td>
+                  <div class="td-avatar-row">
+                    <div class="review-avatar" style="background:#22C55E">PD</div>
+                    Phương Dung
+                  </div>
+                </td>
+                <td class="td-muted">Apple Watch Ultra 2</td>
+                <td class="td-price">19.990.000đ</td>
+                <td class="td-muted">23/05/2025</td>
+                <td><span class="status-badge badge-delivered">Đã giao</span></td>
+                <td>
+                  <div class="action-btns">
+                    <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                    <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="order-code">#SF2025-8838</span></td>
+                <td>
+                  <div class="td-avatar-row">
+                    <div class="review-avatar" style="background:#F59E0B">QA</div>
+                    Quốc Anh
+                  </div>
+                </td>
+                <td class="td-muted">PS5 DualSense Edge</td>
+                <td class="td-price">3.290.000đ</td>
+                <td class="td-muted">22/05/2025</td>
+                <td><span class="status-badge badge-cancelled">Đã hủy</span></td>
+                <td>
+                  <div class="action-btns">
+                    <button class="action-btn view"><i class="bi bi-eye"></i></button>
+                    <button class="action-btn edit"><i class="bi bi-pencil"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="dash-right-col">
+
+        <!-- TOP PRODUCTS -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title">Top Sản Phẩm</div>
+            <a href="products.html" class="admin-btn admin-btn-outline admin-btn-sm">Xem thêm</a>
+          </div>
+          <div class="admin-card-body admin-card-body-zero">
+            <div class="top-product-item">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=80&q=60" alt="" class="admin-product-img" />
+              <div class="top-product-name">
+                <div class="product-name-cell">Sony WH-1000XM5</div>
+                <div class="product-sku-cell">312 đã bán</div>
+              </div>
+              <div class="top-product-price">8.490.000đ</div>
+            </div>
+            <div class="top-product-item">
+              <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=80&q=60" alt="" class="admin-product-img" />
+              <div class="top-product-name">
+                <div class="product-name-cell">iPhone 16 Pro 128GB</div>
+                <div class="product-sku-cell">287 đã bán</div>
+              </div>
+              <div class="top-product-price">26.990.000đ</div>
+            </div>
+            <div class="top-product-item">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=80&q=60" alt="" class="admin-product-img" />
+              <div class="top-product-name">
+                <div class="product-name-cell">Apple Watch Ultra 2</div>
+                <div class="product-sku-cell">198 đã bán</div>
+              </div>
+              <div class="top-product-price">19.990.000đ</div>
+            </div>
+            <div class="top-product-item">
+              <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=80&q=60" alt="" class="admin-product-img" />
+              <div class="top-product-name">
+                <div class="product-name-cell">MacBook Pro M3 14"</div>
+                <div class="product-sku-cell">154 đã bán</div>
+              </div>
+              <div class="top-product-price">42.990.000đ</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOW STOCK ALERT -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title admin-card-title-danger"><i class="bi bi-exclamation-triangle-fill"></i> Sắp hết hàng</div>
+          </div>
+          <div class="admin-card-body admin-card-body-compact">
+            <div class="stock-alert-row"><span>JBL Charge 5 – Đỏ</span><span class="stock-count-danger">2 còn</span></div>
+            <div class="stock-alert-row"><span>AirPods Pro 2 – Trắng</span><span class="stock-count-warning">5 còn</span></div>
+            <div class="stock-alert-row"><span>Samsung S25 Ultra – Titan</span><span class="stock-count-warning">7 còn</span></div>
+          </div>
+        </div>
+
+        <!-- DOANH THU MINI CHART -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title">Doanh thu 7 ngày</div>
+          </div>
+          <div class="admin-card-body">
+            <div class="revenue-chart">
+              <div class="revenue-chart-col"><div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:60%; background:rgba(255,107,0,0.3)"></div></div><span class="revenue-chart-label">T2</span></div>
+              <div class="revenue-chart-col"><div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:80%; background:rgba(255,107,0,0.4)"></div></div><span class="revenue-chart-label">T3</span></div>
+              <div class="revenue-chart-col"><div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:45%; background:rgba(255,107,0,0.3)"></div></div><span class="revenue-chart-label">T4</span></div>
+              <div class="revenue-chart-col"><div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:90%; background:var(--accent); opacity:0.7"></div></div><span class="revenue-chart-label">T5</span></div>
+              <div class="revenue-chart-col"><div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:100%; background:var(--accent)"></div></div><span class="revenue-chart-label-active">T6</span></div>
+              <div class="revenue-chart-col"><div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:75%; background:rgba(255,107,0,0.5)"></div></div><span class="revenue-chart-label">T7</span></div>
+              <div class="revenue-chart-col"><div class="revenue-chart-bar-wrap"><div class="revenue-chart-bar" style="height:55%; background:rgba(255,107,0,0.3)"></div></div><span class="revenue-chart-label">CN</span></div>
+            </div>
+            <div class="revenue-chart-footer">
+              <span style="color:var(--gray)">Tổng 7 ngày</span>
+              <span class="revenue-chart-total">128.4M đ</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BOTTOM: RECENT CUSTOMERS -->
+    <div class="admin-card admin-card-mt">
+      <div class="admin-card-header">
+        <div class="admin-card-title">Khách hàng mới</div>
+        <a href="#" class="admin-btn admin-btn-outline admin-btn-sm">Xem tất cả</a>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Khách hàng</th>
+              <th>Email</th>
+              <th>Số ĐT</th>
+              <th>Đơn hàng</th>
+              <th>Tổng chi tiêu</th>
+              <th>Ngày đăng ký</th>
+              <th>Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="td-avatar-row">
+                  <div class="review-avatar" style="background:var(--accent)">TN</div>
+                  Trần Ngọc
+                </div>
+              </td>
+              <td class="td-muted">tran.ngoc@email.com</td>
+              <td class="td-phone">0912 345 678</td>
+              <td style="font-weight:600">5</td>
+              <td class="td-price">42.500.000đ</td>
+              <td class="td-muted">20/05/2025</td>
+              <td><span class="status-badge badge-active">Hoạt động</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="td-avatar-row">
+                  <div class="review-avatar">MH</div>
+                  Minh Hoàng
+                </div>
+              </td>
+              <td class="td-muted">mhoang@gmail.com</td>
+              <td class="td-phone">0987 654 321</td>
+              <td style="font-weight:600">2</td>
+              <td class="td-price">18.990.000đ</td>
+              <td class="td-muted">22/05/2025</td>
+              <td><span class="status-badge badge-active">Hoạt động</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="td-avatar-row">
+                  <div class="review-avatar" style="background:#22C55E">PD</div>
+                  Phương Dung
+                </div>
+              </td>
+              <td class="td-muted">pdung2001@email.com</td>
+              <td class="td-phone">0901 234 567</td>
+              <td style="font-weight:600">1</td>
+              <td class="td-price">19.990.000đ</td>
+              <td class="td-muted">23/05/2025</td>
+              <td><span class="status-badge badge-active">Hoạt động</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /admin-content -->
+</main>
+
+<script src="../js/client/main.js"></script>
+</body>
+</html>

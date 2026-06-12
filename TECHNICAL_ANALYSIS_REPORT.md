@@ -1,114 +1,107 @@
-# BÁO CÁO PHÂN TÍCH CHI TIẾT MÃ NGUỒN DỰ ÁN (TECHNICAL REPORT)
-**Mục tiêu:** Giúp sinh viên hiểu rõ từng dòng code quan trọng để thuyết minh và trả lời hội đồng.
+# BÁO CÁO PHÂN TÍCH KỸ THUẬT DỰ ÁN (CHI TIẾT PHỤC VỤ BẢO VỆ ĐỒ ÁN)
+
+Tài liệu này giải thích chi tiết các "xương sống" về logic trong dự án, giúp bạn nắm vững để báo cáo và trả lời phản biện trước hội đồng.
 
 ---
 
-## 1. PHẦN BACKEND (NODE.JS & EXPRESS)
+## 1. HỆ THỐNG XÁC THỰC & BẢO MẬT (PB-03)
 
-### A. Logic Bảo Mật & Xác Thực (auth.routes.js)
+### A. Quy trình Đăng ký 2 bước (Register & OTP)
+- **Logic**: Khi người dùng đăng ký, server tạo ra một mã OTP 6 số và lưu vào DB kèm theo thời gian hết hạn (`otp_expiry`). Tài khoản lúc này có trạng thái `is_verified: false`.
+- **Dòng code quan trọng**:
+    ```javascript
+    // Tạo OTP ngẫu nhiên
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); // Hết hạn sau 5 phút
+    ```
+- **Phản biện**: "Tại sao dùng OTP?". Giải thích: "Để đảm bảo email đăng ký là thật, tránh việc spam tài khoản ảo và tăng tính bảo mật."
 
-**Đoạn code 1: Băm mật khẩu (Hash Password)**
-```javascript
-const hashedPassword = await bcrypt.hash(password, 10);
-```
-- **Ý nghĩa:** Sử dụng thuật toán **Bcrypt** để mã hóa mật khẩu. Con số `10` là "Salt rounds" (độ phức tạp). 
-- **Tại sao:** Nếu database bị lộ, hacker cũng không thể biết mật khẩu thật của người dùng vì nó đã biến thành một dãy ký tự ngẫu nhiên.
-
-**Đoạn code 2: Tạo mã OTP ngẫu nhiên**
-```javascript
-const otp = Math.floor(100000 + Math.random() * 900000).toString();
-const otpExpiry = new Date(Date.now() + 5 * 60 * 1000); // 5 phút
-```
-- **Ý nghĩa:** Tạo ra số ngẫu nhiên có 6 chữ số. Thiết lập thời gian hết hạn sau 5 phút kể từ lúc tạo.
-- **Phản biện:** Dùng `Date.now()` để lấy thời gian hiện tại cộng thêm 300.000 miligiây (5 phút).
-
-**Đoạn code 3: Tạo Token JWT khi đăng nhập thành công**
-```javascript
-const token = jwt.sign(
-  { id: user.id, email: user.email },
-  process.env.JWT_SECRET,
-  { expiresIn: '1d' }
-);
-```
-- **Ý nghĩa:** Gói thông tin `id` và `email` vào một "chứng chỉ" điện tử có thời hạn 1 ngày (`1d`).
-- **Phản biện:** Token này giúp Client chứng minh đã đăng nhập mà không cần gửi lại username/password trong những lần sau.
+### B. Bảo mật bằng JWT & Middleware
+- **Logic**: Sau khi đăng nhập, server trả về một "Token". Mọi hành động nhạy cảm (như sửa hồ sơ) đều phải gửi Token này lên. Middleware `protect` sẽ kiểm tra Token đó.
+- **Middleware `protect`**:
+    ```javascript
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = await User.findByPk(decoded.id);
+    ```
+- **Phản biện**: "Làm sao biết người dùng đã đăng nhập?". Giải thích: "Nhờ Token JWT được lưu ở `localStorage` của trình duyệt. Mỗi lần gọi API, Frontend sẽ đính kèm Token vào Header Authorization."
 
 ---
 
-### B. Logic Sản Phẩm & Phân Trang (product.routes.js)
+## 2. HỆ THỐNG GIỎ HÀNG (T08)
 
-**Đoạn code 4: Lọc theo khoảng giá và Phân trang**
-```javascript
-const { count, rows: products } = await Product.findAndCountAll({
-  where, // Chứa các điều kiện lọc (price, categoryId)
-  limit, // Số lượng bản ghi mỗi trang (ví dụ: 8)
-  offset, // Vị trí bắt đầu ( (page - 1) * limit )
-  include: [Category] // Join với bảng Category để lấy tên danh mục
-});
-```
-- **Ý nghĩa:** `findAndCountAll` là hàm mạnh mẽ của Sequelize, vừa lấy danh sách dữ liệu (rows), vừa đếm tổng số bản ghi (count) để hỗ trợ việc chia trang ở Frontend.
+### A. Quản lý trạng thái toàn cục (CartContext)
+- **Kỹ thuật**: Sử dụng **React Context API** để quản lý giỏ hàng xuyên suốt tất cả các trang mà không cần load lại web.
+- **Dòng code đồng bộ LocalStorage**:
+    ```javascript
+    useEffect(() => {
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+    }, [cartItems]);
+    ```
+- **Phản biện**: "Tại sao tắt trình duyệt mở lại giỏ hàng vẫn còn?". Giải thích: "Vì em sử dụng `useEffect` để tự động lưu mảng `cartItems` vào `localStorage` mỗi khi có thay đổi."
+
+### B. Logic Tính Toán (Subtotal)
+- **Hàm tính tổng**:
+    ```javascript
+    const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    ```
+- **Giải thích**: Dùng hàm `reduce` để duyệt qua mảng mặt hàng, lấy giá nhân với số lượng rồi cộng dồn lại.
+- **Sơ đồ luồng dữ liệu (Data Flow)**:
+    1. Người dùng bấm "Thêm vào giỏ" -> Hàm `addToCart` trong `CartContext` được gọi.
+    2. State `cartItems` cập nhật -> Trình duyệt kích hoạt `useEffect`.
+    3. `localStorage.setItem` lưu mảng mới nhất xuống bộ nhớ trình duyệt -> Đảm bảo dữ liệu không mất khi F5.
+
+---
+ 
+---
+
+## 3. HỒ SƠ CÁ NHÂN & TẢI ẢNH (Avatar Upload)
+
+### A. Xử lý tải ảnh bằng Multer
+- **Kỹ thuật**: Dùng thư viện `multer` để xử lý định dạng dề liệu `multipart/form-data`.
+- **Cấu hình lưu trữ**:
+    ```javascript
+    const storage = multer.diskStorage({
+      destination: (req, file, cb) => cb(null, 'uploads/avatars'),
+      filename: (req, file, cb) => cb(null, `avatar-${req.user.id}-${Date.now()}${path.extname(file.originalname)}`)
+    });
+    ```
+- **Phản biện**: "Làm sao để ảnh hiển thị được ra giao diện?". Giải thích: "Em cấu hình `app.use('/uploads', express.static('uploads'))` trong `index.js` để biến thư mục uploads thành thư mục công khai, có thể truy cập qua URL."
+- **Quy trình kỹ thuật**:
+    1. Frontend gửi `FormData` (chứa file binary) lên server.
+    2. Server dùng `Multer` để đổi tên file (tránh trùng lặp) và lưu vào ổ đĩa.
+    3. Đường dẫn file (vd: `/uploads/avatars/abc.jpg`) được lưu vào cột `avatar` trong bảng `Users`.
+
+### B. Logic Cập nhật thông tin (Update Profile)
+- **Kỹ thuật**: Sử dụng phương thức `PUT` của RESTful API.
+- **Dòng code xử lý tại Backend**:
+    ```javascript
+    const { fullName, email, password } = req.body;
+    if (fullName) user.fullName = fullName;
+    if (password) user.password = await bcrypt.hash(password, 10);
+    await user.save();
+    ```
+- **Lưu ý**: Luôn phải mã hóa mật khẩu bằng `bcrypt` trước khi lưu để đảm bảo an toàn dữ liệu khách hàng.
 
 ---
 
-### C. Cơ Sở Dữ Liệu & Liên Kết (models/Product.js)
+## 4. QUẢN LÝ BIẾN THỂ SẢN PHẨM (T07)
 
-**Đoạn code 5: Thiết lập quan hệ (Associations)**
-```javascript
-Product.hasMany(ProductVariant, { foreignKey: 'productId', as: 'variants' });
-ProductVariant.belongsTo(Product, { foreignKey: 'productId' });
-```
-- **Ý nghĩa:** Thiết lập quan hệ **1-n** giữa Sản phẩm và Biến thể. 
-- **Phản biện:** Một Sản phẩm có thể có nhiều màu sắc/dung lượng khác nhau. Việc tách bảng giúp dữ liệu không bị trùng lặp và dễ quản lý tồn kho.
-
----
-
-## 2. PHẦN FRONTEND (REACTJS)
-
-### D. Logic Trang Chủ & Trang Sản Phẩm (Home.jsx / Products.jsx)
-
-**Đoạn code 6: Gọi API đồng thời (Optimization)**
-```javascript
-const [catRes, prodRes] = await Promise.all([
-  axios.get('/api/categories'),
-  axios.get('/api/products/featured')
-]);
-```
-- **Ý nghĩa:** Sử dụng `Promise.all` để gọi 2 API cùng một lúc thay vì phải đợi cái này xong mới gọi cái kia. Giúp trang web load nhanh hơn.
-
----
-
-### E. Logic Chọn Biến Thể ở Trang Chi Tiết (ProductDetail.jsx)
-
-**Đoạn code 7: Cập nhật giá và ảnh theo lựa chọn của người dùng**
-```javascript
-useEffect(() => {
-  if (product?.variants) {
+### A. Logic chọn Color/Size (ProductDetail.jsx)
+- **Logic**: Mỗi sản phẩm có nhiều `ProductVariant`. Khi người dùng click chọn Màu/Size, React sẽ lọc trong danh sách variants để tìm cái khớp nhất.
+- **Dòng code tìm kiếm**:
+    ```javascript
     const match = product.variants.find(v => v.color === selectedColor && v.size === selectedSize);
     setCurrentVariant(match || null);
-  }
-}, [selectedColor, selectedSize]);
-```
-- **Ý nghĩa:** Khi người dùng thay đổi Màu (Color) hoặc Size, React sẽ chạy lại hàm này để tìm trong danh sách `variants` xem cái nào khớp với lựa chọn đó.
-- **Phản biện:** Nếu tìm thấy (`match`), chúng ta sẽ lấy `match.price` và `match.image` để hiển thị lên màn hình.
+    ```
+- **Phản biện**: "Làm sao thay đổi giá khi chọn dung lượng khác?". Giải thích: "Khi tìm thấy `match` (biến thể khớp), em sẽ cập nhật state `currentVariant`, từ đó giao diện sẽ lấy giá (`currentVariant.price`) để hiển thị."
 
 ---
 
-## 3. CÁC ĐOẠN CODE "XƯƠNG SỐNG" KHÁC
+## TỔNG KẾT CÁC CÂU HỎI HỘI ĐỒNG THƯỜNG HỎI:
 
-**File .env (Biến môi trường):**
-- Giúp tách biệt mã nguồn và các thông tin nhạy cảm (mật khẩu DB, Secret Key). 
-- Giúp dễ dàng cấu hình cho các máy khác nhau mà không cần sửa code.
-
-**File index.js (Database Sync):**
-```javascript
-await sequelize.sync(); 
-await seedData();
-```
-- **`sequelize.sync()`:** Tự động tạo bảng trong SQL dựa trên các Model đã viết ở Node.js. Giúp tiết kiệm thời gian tạo bảng thủ công bằng tay.
-- **`seedData()`:** Tự động chèn dữ liệu mẫu nếu database đang trống.
-
----
-**LỜI KHUYÊN KHI GIẢI TRÌNH:**
-- Nếu thầy cô hỏi: "Bạn dùng database gì?", hãy trả lời: "**MySQL** và dùng **Sequelize** làm ORM".
-- Nếu thầy cô hỏi: "Tại sao trang web chạy mượt?", hãy trả lời: "Vì em dùng **ReactJS** xử lý dữ liệu ở Client và API của Node.js trả về dữ liệu **JSON** rất nhẹ".
-- Nếu thầy cô hỏi: "Phân trang làm ở đâu?", hãy trả lời: "**Làm ở cả 2 đầu**. Backend tính toán và cắt dữ liệu, Frontend hiển thị các nút điều hướng".
+1.  **Hỏi**: Em dùng kiến trúc gì cho dự án?
+    *   **Trả lời**: Kiến trúc **RESTful API** với **MERN Stack** (MySQL thay cho MongoDB). Frontend React độc lập với Backend Node.js.
+2.  **Hỏi**: Tại sao phải dùng Sequelize?
+    *   **Trả lời**: Đây là một **ORM**, giúp em tương tác với MySQL bằng code Javascript, tránh việc phải viết SQL thuần, giúp code nhanh, sạch và bảo mật hơn (tránh SQL Injection).
+3.  **Hỏi**: Dự án này có gì nổi bật về UI/UX?
+    *   **Trả lời**: Em áp dụng thiết kế **ShopFlow UI** hiện đại, các hiệu ứng Loading Skeleton, thông báo Toast mượt mà và đặc biệt là hệ thống chọn biến thể sản phẩm thông minh như các trang TMĐT lớn (Shopee, Tiki).

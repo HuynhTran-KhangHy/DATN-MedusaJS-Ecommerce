@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFlow – Chi Tiết Sản Phẩm</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/client/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">Shop<span>Flow</span></a>
+  <ul class="navbar-nav">
+    <li><a href="index.html">Trang chủ</a></li>
+    <li><a href="products.html">Sản phẩm</a></li>
+    <li><a href="#">Đơn hàng</a></li>
+    <li><a href="#">Tài khoản</a></li>
+  </ul>
+  <div class="navbar-actions">
+    <button class="btn-icon"><i class="bi bi-search"></i></button>
+    <button class="btn-icon"><i class="bi bi-heart"></i></button>
+    <a href="cart.html" class="btn-icon pos-relative">
+      <i class="bi bi-bag"></i>
+      <span class="badge-count cart-badge-count">3</span>
+    </a>
+    <a href="admin/dashboard.html" class="btn-admin"><i class="bi bi-grid-3x3-gap"></i> Admin Panel</a>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="page-header" style="padding: 1rem 2rem">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Trang chủ</a>
+      <span>/</span>
+      <a href="products.html">Sản phẩm</a>
+      <span>/</span>
+      <a href="products.html">Tai nghe</a>
+      <span>/</span>
+      <span>Sony WH-1000XM5</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL -->
+<section class="section products-section-bg">
+  <div class="container">
+    <div class="product-detail-grid">
+
+      <!-- GALLERY -->
+      <div>
+        <div class="product-gallery-main">
+          <img id="mainImg" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80" alt="Sony WH-1000XM5" />
+        </div>
+        <div class="product-thumbnails">
+          <div class="thumb active">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80" alt="" />
+          </div>
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1546435770-a3e429ad6e5a?w=200&q=80" alt="" />
+          </div>
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=200&q=80" alt="" />
+          </div>
+          <div class="thumb">
+            <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=200&q=80" alt="" />
+          </div>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div>
+        <div class="product-detail-cat">Tai nghe chụp tai</div>
+        <h1 class="product-detail-title">Sony WH-1000XM5<br>Wireless Noise Cancelling</h1>
+
+        <div class="flex-center" style="margin-bottom: 1rem">
+          <div class="stars">★★★★★</div>
+          <span class="text-xs text-muted">4.9 (312 đánh giá)</span>
+          <span style="width:1px; height:14px; background: var(--border)"></span>
+          <span class="text-xs text-success" style="font-weight:600"><i class="bi bi-check-circle-fill"></i> Còn hàng</span>
+        </div>
+
+        <div class="product-detail-price">
+          8.490.000đ <span>9.990.000đ</span>
+          <span class="text-xs" style="background: var(--accent); color:white; padding:0.2rem 0.5rem; border-radius:3px; font-weight:700; vertical-align:middle; margin-left:0.5rem">-15%</span>
+        </div>
+
+        <!-- COLOR -->
+        <div class="variant-section">
+          <div class="variant-label">Màu sắc: <strong>Đen</strong></div>
+          <div class="variant-options">
+            <button class="color-btn active" style="background:#111111" title="Đen"></button>
+            <button class="color-btn" style="background:#FFFFFF; border:1px solid var(--border)" title="Trắng"></button>
+            <button class="color-btn" style="background:#C0C0C0" title="Bạc"></button>
+            <button class="color-btn" style="background:#8B4513" title="Nâu đồng"></button>
+          </div>
+        </div>
+
+        <!-- QUANTITY -->
+        <div class="variant-section">
+          <div class="variant-label">Số lượng</div>
+          <div class="qty-control">
+            <button class="qty-btn" data-action="dec"><i class="bi bi-dash"></i></button>
+            <input type="text" class="qty-value" value="1" readonly />
+            <button class="qty-btn" data-action="inc"><i class="bi bi-plus"></i></button>
+          </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="product-actions">
+          <button class="btn btn-primary btn-add-cart"><i class="bi bi-bag-plus"></i> Thêm giỏ hàng</button>
+          <a href="checkout.html" class="btn btn-accent"><i class="bi bi-lightning-charge"></i> Mua ngay</a>
+          <button class="btn-icon" style="border: 1.5px solid var(--border); border-radius: var(--radius)"><i class="bi bi-heart"></i></button>
+        </div>
+
+        <!-- META -->
+        <div class="product-meta">
+          <div class="product-meta-row">
+            <strong>Thương hiệu</strong>
+            <span>Sony</span>
+          </div>
+          <div class="product-meta-row">
+            <strong>SKU</strong>
+            <span>WH1000XM5-BK</span>
+          </div>
+          <div class="product-meta-row">
+            <strong>Kết nối</strong>
+            <span>Bluetooth 5.2, Jack 3.5mm</span>
+          </div>
+          <div class="product-meta-row">
+            <strong>Pin</strong>
+            <span>30 giờ (ANC bật)</span>
+          </div>
+          <div class="product-meta-row">
+            <strong>Trọng lượng</strong>
+            <span>250g</span>
+          </div>
+          <div class="product-meta-row">
+            <strong>Giao hàng</strong>
+            <span class="text-success"><i class="bi bi-truck"></i> GHN / GHTK – 1-3 ngày</span>
+          </div>
+        </div>
+
+        <!-- TRUST BADGES -->
+        <div class="flex-center" style="gap: 1.5rem; margin-top: 1.5rem; padding: 1rem; background: var(--bg); border-radius: var(--radius);">
+          <div style="text-align:center;" class="text-xs text-muted"><i class="bi bi-shield-check" style="font-size:1.2rem; color: var(--success); display:block; margin-bottom:0.2rem"></i>BH 12 tháng</div>
+          <div style="text-align:center;" class="text-xs text-muted"><i class="bi bi-arrow-return-left" style="font-size:1.2rem; color: var(--info); display:block; margin-bottom:0.2rem"></i>Đổi trả 30 ngày</div>
+          <div style="text-align:center;" class="text-xs text-muted"><i class="bi bi-truck" style="font-size:1.2rem; color: var(--accent); display:block; margin-bottom:0.2rem"></i>Giao nhanh</div>
+          <div style="text-align:center;" class="text-xs text-muted"><i class="bi bi-credit-card" style="font-size:1.2rem; color: var(--dark); display:block; margin-bottom:0.2rem"></i>Thanh toán an toàn</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS: Mô tả / Đánh giá -->
+    <div style="margin-top: 3rem">
+      <div class="flex-center" style="gap:0; border-bottom: 2px solid var(--border); margin-bottom: 2rem">
+        <button id="tabDesc" onclick="switchTab('desc')" style="padding: 0.8rem 2rem; font-family: var(--font-body); font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; border:none; background:none; cursor:pointer; border-bottom: 2px solid var(--dark); margin-bottom:-2px; color: var(--dark)">Mô tả</button>
+        <button id="tabReview" onclick="switchTab('review')" style="padding: 0.8rem 2rem; font-family: var(--font-body); font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; border:none; background:none; cursor:pointer; color: var(--gray)">Đánh giá (312)</button>
+      </div>
+
+      <div id="panelDesc">
+        <div style="max-width: 780px; line-height: 1.8; color: #333;">
+          <p style="margin-bottom:1rem">Sony WH-1000XM5 là flagship tai nghe chống ồn của Sony với công nghệ Noise Cancelling thế hệ mới nhất. Sử dụng 8 microphone và 2 chip xử lý, WH-1000XM5 mang lại khả năng chống ồn vượt trội hơn bất kỳ sản phẩm nào trong phân khúc.</p>
+          <p style="margin-bottom:1rem">Driver 30mm mới được thiết kế từ đầu mang lại âm thanh trung thực, chi tiết với dải âm rộng. Tính năng Speak-to-Chat tự động tạm dừng nhạc khi bạn bắt đầu nói chuyện, mang lại sự tiện lợi tuyệt vời trong cuộc sống hàng ngày.</p>
+          <ul style="margin-left: 1.5rem; margin-bottom:1rem">
+            <li>Chống ồn hàng đầu ngành với 8 microphone + 2 chip xử lý</li>
+            <li>Chất âm tự nhiên, trung thực với driver 30mm mới</li>
+            <li>Pin 30 giờ, sạc nhanh 3 phút dùng được 3 giờ</li>
+            <li>Multipoint kết nối 2 thiết bị cùng lúc</li>
+            <li>Thiết kế gập gọn, trọng lượng nhẹ 250g</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="panelReview" style="display:none; max-width:780px">
+        <div style="display:flex; gap: 2rem; margin-bottom:2rem; padding: 1.5rem; background: var(--bg); border-radius: var(--radius-lg)">
+          <div style="text-align:center">
+            <div style="font-size: 3rem; font-weight:700; line-height:1">4.9</div>
+            <div class="stars" style="font-size:1rem">★★★★★</div>
+            <div class="text-xs text-muted" style="margin-top:0.2rem">312 đánh giá</div>
+          </div>
+          <div style="flex:1">
+            <div class="flex-center" style="margin-bottom:0.3rem">
+              <span class="text-xs" style="width:30px">5★</span>
+              <div style="flex:1; height:8px; background: var(--border); border-radius:4px; overflow:hidden"><div style="width:85%; height:100%; background: var(--accent)"></div></div>
+              <span class="text-xs text-muted" style="width:30px">265</span>
+            </div>
+            <div class="flex-center" style="margin-bottom:0.3rem">
+              <span class="text-xs" style="width:30px">4★</span>
+              <div style="flex:1; height:8px; background: var(--border); border-radius:4px; overflow:hidden"><div style="width:12%; height:100%; background: var(--accent); opacity:0.7"></div></div>
+              <span class="text-xs text-muted" style="width:30px">38</span>
+            </div>
+            <div class="flex-center">
+              <span class="text-xs" style="width:30px">3★</span>
+              <div style="flex:1; height:8px; background: var(--border); border-radius:4px; overflow:hidden"><div style="width:3%; height:100%; background: var(--accent); opacity:0.4"></div></div>
+              <span class="text-xs text-muted" style="width:30px">9</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">TN</div>
+            <div>
+              <div class="review-name">Trần Ngọc</div>
+              <div class="review-date">15/05/2025</div>
+            </div>
+            <div class="stars" style="margin-left:auto">★★★★★</div>
+          </div>
+          <p style="font-size:0.875rem; line-height:1.7">Sản phẩm rất tốt, chống ồn cực kỳ hiệu quả. Âm thanh chi tiết và rộng. Giao hàng nhanh, đóng gói cẩn thận. Rất hài lòng!</p>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">MH</div>
+            <div>
+              <div class="review-name">Minh Hoàng</div>
+              <div class="review-date">10/05/2025</div>
+            </div>
+            <div class="stars" style="margin-left:auto">★★★★★</div>
+          </div>
+          <p style="font-size:0.875rem; line-height:1.7">Mua lần 2 rồi, chất lượng không có gì phải bàn. Pin trâu, kết nối ổn định. Đáng tiền!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATED PRODUCTS -->
+    <div style="margin-top:3rem">
+      <div class="section-header">
+        <div class="section-header-row">
+          <div>
+            <div class="section-title">SẢN PHẨM LIÊN QUAN</div>
+          </div>
+          <a href="products.html" class="see-all">XEM TẤT CẢ <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="https://images.unsplash.com/photo-1546435770-a3e429ad6e5a?w=600&q=80" alt="" />
+            <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+          </div>
+          <div class="product-card-body">
+            <div class="product-category">Tai nghe</div>
+            <div class="product-name">Bose QuietComfort 45</div>
+            <div class="product-price-row"><span class="product-price">7.990.000đ</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&q=80" alt="" />
+            <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+          </div>
+          <div class="product-card-body">
+            <div class="product-category">Tai nghe</div>
+            <div class="product-name">AirPods Max</div>
+            <div class="product-price-row"><span class="product-price">13.990.000đ</span></div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img">
+            <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80" alt="" />
+            <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+          </div>
+          <div class="product-card-body">
+            <div class="product-category">Tai nghe</div>
+            <div class="product-name">JBL Tour One M2</div>
+            <div class="product-price-row"><span class="product-price">4.990.000đ</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none; padding-top:0">
+      <span>© 2026 ShopFlow. FPT Polytechnic – Nhóm 5.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/client/main.js"></script>
+<script src="js/client/product-detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopFlow – Trang Chủ</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/client/style.css" />
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <a href="index.html" class="navbar-brand">Shop<span>Flow</span></a>
+  <ul class="navbar-nav">
+    <li><a href="index.html" class="active">Trang chủ</a></li>
+    <li><a href="products.html">Sản phẩm</a></li>
+    <li><a href="#">Đơn hàng</a></li>
+    <li><a href="#">Tài khoản</a></li>
+  </ul>
+  <div class="navbar-actions">
+    <button class="btn-icon" title="Tìm kiếm"><i class="bi bi-search"></i></button>
+    <button class="btn-icon" title="Yêu thích"><i class="bi bi-heart"></i></button>
+    <button class="btn-icon pos-relative" title="Giỏ hàng">
+      <i class="bi bi-bag"></i>
+      <span class="badge-count cart-badge-count">3</span>
+    </button>
+    <a href="admin/dashboard.html" class="btn-admin">
+      <i class="bi bi-grid-3x3-gap"></i> Admin Panel
+    </a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1600&q=80" alt="Hero" />
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge"><i class="bi bi-lightning-charge-fill"></i> Đỉnh Cao Âm Thanh 2025</div>
+    <h1 class="hero-title">TRẢI NGHIỆM <em>VƯỢT</em><br>GIỚI HẠN</h1>
+    <p class="hero-desc">Khám phá bộ sưu tập thiết bị âm thanh và công nghệ đẳng cấp thế giới. Thiết kế sang trọng, hiệu năng vượt trội.</p>
+    <div class="hero-btns">
+      <a href="products.html" class="btn btn-primary btn-lg">MUA NGAY</a>
+      <a href="products.html" class="btn btn-outline btn-lg">TÌM HIỂU THÊM</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORIES ===== -->
+<section class="section-sm categories-section">
+  <div class="container">
+    <div class="categories-strip">
+      <div class="cat-chip active"><i class="bi bi-grid"></i> Tất cả</div>
+      <div class="cat-chip"><i class="bi bi-headphones"></i> Tai nghe</div>
+      <div class="cat-chip"><i class="bi bi-phone"></i> Điện thoại</div>
+      <div class="cat-chip"><i class="bi bi-laptop"></i> Laptop</div>
+      <div class="cat-chip"><i class="bi bi-watch"></i> Smartwatch</div>
+      <div class="cat-chip"><i class="bi bi-speaker"></i> Loa</div>
+      <div class="cat-chip"><i class="bi bi-camera"></i> Máy ảnh</div>
+      <div class="cat-chip"><i class="bi bi-controller"></i> Gaming</div>
+      <div class="cat-chip"><i class="bi bi-usb-plug"></i> Phụ kiện</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED PRODUCTS ===== -->
+<section class="section products-section-bg">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-row">
+        <div>
+          <div class="section-title">SẢN PHẨM NỔI BẬT</div>
+          <p class="section-subtitle">Những thiết bị được yêu thích nhất trong tháng</p>
+        </div>
+        <a href="products.html" class="see-all">XEM TẤT CẢ <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="products-grid">
+      <!-- Card 1 -->
+      <div class="product-card" onclick="location.href='product-detail.html'">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Headphones" />
+          <span class="product-badge badge-new">Mới</span>
+          <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+        </div>
+        <div class="product-card-body">
+          <div class="product-category">Tai nghe chụp tai</div>
+          <div class="product-name">Wireless Over-Ear Studio Pro</div>
+          <div class="product-price-row">
+            <span class="product-price">8.990.000đ</span>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="product-card" onclick="location.href='product-detail.html'">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Watch" />
+          <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+        </div>
+        <div class="product-card-body">
+          <div class="product-category">Smartwatch</div>
+          <div class="product-name">Luxury Smart Chrono</div>
+          <div class="product-price-row">
+            <span class="product-price">12.500.000đ</span>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="product-card" onclick="location.href='product-detail.html'">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80" alt="Speaker" />
+          <span class="product-badge badge-sale">-15%</span>
+          <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+        </div>
+        <div class="product-card-body">
+          <div class="product-category">Loa Bluetooth</div>
+          <div class="product-name">Portable SoundBox Extreme</div>
+          <div class="product-price-row">
+            <span class="product-price">4.250.000đ</span>
+            <span class="product-price-old">5.000.000đ</span>
+          </div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="product-card" onclick="location.href='product-detail.html'">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&q=80" alt="Phone" />
+          <span class="product-badge badge-new">Mới</span>
+          <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+        </div>
+        <div class="product-card-body">
+          <div class="product-category">Điện thoại</div>
+          <div class="product-name">iPhone 16 Pro 128GB</div>
+          <div class="product-price-row">
+            <span class="product-price">26.990.000đ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROMO BANNER ===== -->
+<section class="section promo-section-bg">
+  <div class="container">
+    <div class="promo-banner">
+      <div class="promo-banner-text">
+        <h2>FLASH SALE<br>CUỐI TUẦN</h2>
+        <p>Hàng nghìn sản phẩm giảm giá sốc. Số lượng có hạn!</p>
+        <a href="products.html" class="btn btn-accent" style="margin-top: 1.5rem">MUA NGAY <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="promo-badge">GIẢM<br>ĐẾN 50%</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEW ARRIVALS ===== -->
+<section class="section products-section-bg">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-row">
+        <div>
+          <div class="section-title">HÀNG MỚI VỀ</div>
+          <p class="section-subtitle">Cập nhật sản phẩm mới nhất mỗi ngày</p>
+        </div>
+        <a href="products.html" class="see-all">XEM TẤT CẢ <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="products-grid">
+      <div class="product-card" onclick="location.href='product-detail.html'">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80" alt="Laptop" />
+          <span class="product-badge badge-new">Mới</span>
+          <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+        </div>
+        <div class="product-card-body">
+          <div class="product-category">Laptop</div>
+          <div class="product-name">MacBook Pro M3 14"</div>
+          <div class="product-price-row">
+            <span class="product-price">42.990.000đ</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" onclick="location.href='product-detail.html'">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=600&q=80" alt="Camera" />
+          <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+        </div>
+        <div class="product-card-body">
+          <div class="product-category">Máy ảnh</div>
+          <div class="product-name">Sony A7 IV Mirrorless</div>
+          <div class="product-price-row">
+            <span class="product-price">58.500.000đ</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" onclick="location.href='product-detail.html'">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&q=80" alt="Earbuds" />
+          <span class="product-badge badge-sale">-10%</span>
+          <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+        </div>
+        <div class="product-card-body">
+          <div class="product-category">Tai nghe</div>
+          <div class="product-name">AirPods Pro 2nd Gen</div>
+          <div class="product-price-row">
+            <span class="product-price">5.850.000đ</span>
+            <span class="product-price-old">6.500.000đ</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card" onclick="location.href='product-detail.html'">
+        <div class="product-card-img">
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=80" alt="Gaming" />
+          <button class="product-card-btn-add btn-add-cart"><i class="bi bi-plus"></i></button>
+        </div>
+        <div class="product-card-body">
+          <div class="product-category">Gaming</div>
+          <div class="product-name">PS5 DualSense Edge</div>
+          <div class="product-price-row">
+            <span class="product-price">3.290.000đ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="section-sm features-section">
+  <div class="container">
+    <div class="features-grid" style="text-align: center;">
+      <div>
+        <div class="feature-icon"><i class="bi bi-truck"></i></div>
+        <div class="fw-700 text-sm" style="text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.2rem;">Giao hàng nhanh</div>
+        <div class="text-xs text-muted">Tích hợp GHN & GHTK</div>
+      </div>
+      <div>
+        <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+        <div class="fw-700 text-sm" style="text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.2rem;">Bảo hành chính hãng</div>
+        <div class="text-xs text-muted">12–24 tháng tại hãng</div>
+      </div>
+      <div>
+        <div class="feature-icon"><i class="bi bi-arrow-return-left"></i></div>
+        <div class="fw-700 text-sm" style="text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.2rem;">Đổi trả 30 ngày</div>
+        <div class="text-xs text-muted">Miễn phí đổi trả</div>
+      </div>
+      <div>
+        <div class="feature-icon"><i class="bi bi-credit-card"></i></div>
+        <div class="fw-700 text-sm" style="text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.2rem;">Thanh toán đa dạng</div>
+        <div class="text-xs text-muted">VNPay, MoMo, ZaloPay, COD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Shop<span>Flow</span></div>
+        <p class="footer-desc">Nền tảng thương mại điện tử tích hợp biến thể sản phẩm và đơn vị vận chuyển hàng đầu Việt Nam.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Sản phẩm</div>
+        <div class="footer-links">
+          <a href="#">Điện thoại</a>
+          <a href="#">Laptop</a>
+          <a href="#">Tai nghe</a>
+          <a href="#">Smartwatch</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Hỗ trợ</div>
+        <div class="footer-links">
+          <a href="#">Tra cứu đơn hàng</a>
+          <a href="#">Chính sách đổi trả</a>
+          <a href="#">Bảo hành</a>
+          <a href="#">Liên hệ</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Thanh toán</div>
+        <div class="footer-links">
+          <a href="#"><i class="bi bi-credit-card-2-front"></i> VNPay</a>
+          <a href="#"><i class="bi bi-wallet2"></i> MoMo</a>
+          <a href="#"><i class="bi bi-wallet"></i> ZaloPay</a>
+          <a href="#"><i class="bi bi-cash"></i> COD</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ShopFlow. FPT Polytechnic – Nhóm 5.</span>
+      <span>WD20302</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/client/main.js"></script>
+</body>
+</html>

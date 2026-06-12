@@ -1,21 +1,43 @@
 import { Link } from 'react-router-dom';
-import './ProductCard.css';
+import { useCart } from '../context/CartContext';
+import { useState } from 'react';
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useCart();
+  const [added, setAdded] = useState(false);
+
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price).replace('₫', 'đ');
+  };
+
+  const handleQuickAdd = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Quick add uses the base product price and no specific variant if not chosen
+    addToCart(product, null, 1);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
   };
 
   return (
     <div className="product-card">
-      <div className="product-image">
-        <img src={product.image || 'https://via.placeholder.com/300'} alt={product.name} />
-      </div>
-      <div className="product-info">
-        <span className="product-category">{product.category?.name || product.Category?.name || 'Sản phẩm'}</span>
-        <h3 className="product-name">{product.name}</h3>
-        <p className="product-price">{formatPrice(product.price)}</p>
-        <Link to={`/products/${product.id}`} className="btn-view">Xem chi tiết</Link>
+      <Link to={`/products/${product.id}`} className="product-card-img">
+        <img src={product.image || 'https://via.placeholder.com/600'} alt={product.name} />
+        {product.is_new && <span className="product-badge badge-new">Mới</span>}
+        <button 
+          className="product-card-btn-add btn-add-cart" 
+          onClick={handleQuickAdd}
+          style={{ background: added ? 'var(--success)' : 'var(--dark)' }}
+        >
+          {added ? <i className="bi bi-check"></i> : <i className="bi bi-plus"></i>}
+        </button>
+      </Link>
+      <div className="product-card-body">
+        <div className="product-category">{product.Category?.name}</div>
+        <Link to={`/products/${product.id}`} className="product-name">{product.name}</Link>
+        <div className="product-price-row">
+          <span className="product-price">{formatPrice(product.price)}</span>
+        </div>
       </div>
     </div>
   );
