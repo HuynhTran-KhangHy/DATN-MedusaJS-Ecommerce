@@ -44,10 +44,10 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
   console.log(`Server chạy tại http://localhost:${PORT}`);
   await connectDB();
-  // Đồng bộ database
+  // Đồng bộ database an toàn: không dùng alter=true trên mỗi khởi động
   try {
-    await sequelize.sync({ alter: true });
-    await seedData(); // Khởi tạo dữ liệu mẫu
+    await sequelize.sync({ force: false, alter: false });
+    await seedData();
     console.log('Database đã được đồng bộ và seed dữ liệu!');
   } catch (error) {
     console.error('Lỗi đồng bộ database:', error);

@@ -9,25 +9,8 @@ const seedData = async () => {
     const needsReSeed = zeroPriceCount > 0;
 
     if (categoryCount > 0 && !needsReSeed) {
-      // Tự động cập nhật màu và size cho dữ liệu cũ nếu bị NULL
-      const nullVariantsCount = await ProductVariant.count({ where: { color: null } });
-      if (nullVariantsCount > 0) {
-        console.log('Phát hiện biến thể cũ chưa có màu sắc/kích thước. Đang tự động cập nhật...');
-        const variants = await ProductVariant.findAll();
-        for (const v of variants) {
-          if (!v.color || !v.size) {
-            const name = v.variant_name || '';
-            if (name.includes('Titan Đen')) { v.color = 'Titan Đen'; v.size = '256GB'; }
-            else if (name.includes('Titan Xanh')) { v.color = 'Titan Xanh'; v.size = '256GB'; }
-            else if (name.includes('Titan Trắng')) { v.color = 'Titan Trắng'; v.size = '512GB'; }
-            else if (name.includes('Xám Titan')) { v.color = 'Xám Titan'; v.size = '256GB'; }
-            else if (name.includes('Vàng Titan')) { v.color = 'Vàng Titan'; v.size = '256GB'; }
-            await v.save();
-          }
-        }
-        console.log('Tự động cập nhật biến thể hoàn tất!');
-      }
-      return; // Đã có dữ liệu chuẩn
+      console.log('Dữ liệu mẫu đã tồn tại, bỏ qua khởi tạo lại.');
+      return;
     }
 
     if (needsReSeed) {
