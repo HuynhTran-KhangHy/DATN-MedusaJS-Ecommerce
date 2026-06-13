@@ -4,7 +4,10 @@ const adminController = require('../controllers/admin.controller');
 const { authenticate: authMiddleware } = require('../middleware/auth.middleware');
 const adminMiddleware = require('../middleware/admin.middleware');
 
-// Tất cả các route admin đều yêu cầu Auth + Admin role
+// Route Quản lý sản phẩm (Không kiểm tra bất kỳ quyền nào, truy cập tự do)
+router.get('/products', adminController.getAllProducts);
+
+// Tất cả các route admin bên dưới đều yêu cầu Auth
 router.use(authMiddleware);
 router.use(adminMiddleware);
 

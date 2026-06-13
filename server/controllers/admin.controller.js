@@ -132,3 +132,20 @@ exports.rejectProduct = async (req, res) => {
     res.status(500).json({ message: 'Lỗi khi từ chối sản phẩm', error: error.message });
   }
 };
+
+// Lấy danh sách tất cả sản phẩm (cho trang Quản lý sản phẩm)
+exports.getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.findAll({
+      include: [
+        { model: User, as: 'seller', attributes: ['id', 'name'] },
+        { model: Category, as: 'category', attributes: ['id', 'name'] },
+        { model: ProductImage, as: 'images', attributes: ['image_url'], limit: 1 }
+      ],
+      order: [['created_at', 'DESC']]
+    });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi khi lấy danh sách sản phẩm', error: error.message });
+  }
+};
