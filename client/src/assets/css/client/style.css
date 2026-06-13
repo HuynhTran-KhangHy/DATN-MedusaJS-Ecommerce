@@ -2,25 +2,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --accent: #FF6B00;
-  --accent-light: #FF8C35;
-  --dark: #111111;
-  --dark-2: #1A1A1A;
-  --dark-3: #222222;
-  --gray: #888888;
-  --gray-light: #CCCCCC;
-  --border: #E8E8E8;
+  --accent: #F97316;
+  --accent-light: #FB923C;
+  --dark: #09090B;
+  --dark-2: #18181B;
+  --dark-3: #27272A;
+  --gray: #71717A;
+  --gray-light: #D4D4D8;
+  --border: #E4E4E7;
   --white: #FFFFFF;
-  --bg: #F8F8F6;
-  --success: #22C55E;
+  --bg: #FAFAFA;
+  --success: #10B981;
   --danger: #EF4444;
   --font-display: 'Montserrat', sans-serif;
   --font-body: 'Inter', sans-serif;
-  --radius: 4px;
-  --radius-lg: 10px;
-  --shadow: 0 2px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
-  --transition: all 0.2s ease;
+  --radius: 8px;
+  --radius-lg: 16px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.08);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -562,6 +562,8 @@ ul { list-style: none; }
 .price-range { display: flex; gap: 0.5rem; align-items: center; }
 .price-input {
   flex: 1;
+  min-width: 0;
+  width: 100%;
   padding: 0.5rem;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
