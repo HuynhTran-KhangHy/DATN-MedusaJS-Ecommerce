@@ -29,9 +29,6 @@ class ProductResource {
         variant_name: v.variant_name,
         price: parseFloat(v.price) || 0,
         stock: parseInt(v.stock) || 0,
-        color: v.color,
-        size: v.size,
-        image: v.image,
         attributes: parsedAttributes
       };
     }) : [];
@@ -64,8 +61,7 @@ class ProductResource {
       description: product.description,
       base_price: parseFloat(product.base_price) || 0,
       price: parseFloat(product.base_price) || 0, // Alias cho frontend
-      image: product.image || (images.find(img => img.is_main)?.image_url || null),
-      is_featured: !!product.is_featured,
+      image: images.find(img => img.is_main)?.image_url || images[0]?.image_url || null,
       slug: product.slug,
       status: product.status,
       category,

@@ -30,7 +30,6 @@ exports.getAllProducts = async (req, res, next) => {
     // Only show active products for general users
     where.status = 1;
 
-    if (featured === 'true') where.is_featured = true;
     if (categoryId) where.category_id = categoryId;
 
     // Search by name, description, slug and category name to make the keyword flow more complete.
