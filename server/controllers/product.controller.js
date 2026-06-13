@@ -86,8 +86,8 @@ exports.getAllProducts = async (req, res, next) => {
 // 2. GET /api/products/featured (T-04)
 exports.getFeaturedProducts = async (req, res, next) => {
   try {
-    const products = await Product.findAll({ 
-      where: { is_featured: true, status: 1 },
+const products = await Product.findAll({ 
+  where: { status: 1 },
       limit: 8,
       include: ['variants', 'images', 'category'],
       order: [['created_at', 'DESC']]

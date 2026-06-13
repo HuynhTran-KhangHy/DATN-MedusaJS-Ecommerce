@@ -19,14 +19,6 @@ const Product = sequelize.define('Product', {
     allowNull: false,
     defaultValue: 0,
   },
-  image: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-  is_featured: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
   category_id: {
     type: DataTypes.INTEGER,
     allowNull: true,

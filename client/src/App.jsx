@@ -17,7 +17,7 @@ import AdminProducts from './pages/admin/Products';
 import Orders from './pages/admin/Orders';
 import Categories from './pages/admin/Categories';
 import Customers from './pages/admin/Customers';
-import UserManagement from './pages/admin/UserManagement';
+import UserManagement from './pages/admin/Users';
 import Settings from './pages/admin/Settings';
 
 // Seller Pages
