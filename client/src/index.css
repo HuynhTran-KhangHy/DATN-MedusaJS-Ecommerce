@@ -559,19 +559,77 @@ ul { list-style: none; }
   font-size: 0.8rem;
 }
 
-.price-range { display: flex; gap: 0.5rem; align-items: center; }
-.price-input {
+
+.price-range { 
+  display: flex; 
+  gap: 0.8rem; 
+  align-items: center; 
+  margin-bottom: 1.5rem;
+}
+
+.price-input-group {
+  position: relative;
   flex: 1;
   min-width: 0;
+}
+
+.price-input-group::after {
+  content: 'đ';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.price-input {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.6rem 1.6rem 0.6rem 0.6rem;
   border: 1.5px solid var(--border);
   border-radius: var(--radius);
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  transition: var(--transition);
+  background: white;
+}
+
+.price-input:focus { 
+  outline: none; 
+  border-color: var(--dark); 
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+}
+
+.price-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.price-chip {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
   transition: var(--transition);
 }
-.price-input:focus { outline: none; border-color: var(--dark); }
+
+.price-chip:hover {
+  border-color: var(--dark);
+  background: white;
+}
+
+.price-chip.active {
+  background: var(--dark);
+  color: white;
+  border-color: var(--dark);
+}
 
 .products-header {
   display: flex;

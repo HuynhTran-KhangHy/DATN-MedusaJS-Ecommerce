@@ -98,26 +98,65 @@ const Products = () => {
 
           <div className="filter-section">
             <div className="filter-section-title">Khoảng giá</div>
+            
+            <div className="price-chips">
+              {[
+                { label: 'Dưới 5tr', min: 0, max: 5000000 },
+                { label: '5tr - 10tr', min: 5000000, max: 10000000 },
+                { label: '10tr - 20tr', min: 10000000, max: 20000000 },
+                { label: 'Trên 20tr', min: 20000000, max: 999000000 },
+              ].map((range, idx) => (
+                <button 
+                  key={idx}
+                  className={`price-chip ${filters.minPrice === range.min && filters.maxPrice === range.max ? 'active' : ''}`}
+                  onClick={() => {
+                    setFilters(prev => ({
+                      ...prev,
+                      minPrice: range.min,
+                      maxPrice: range.max
+                    }));
+                  }}
+                >
+                  {range.label}
+                </button>
+              ))}
+            </div>
+
             <div className="price-range">
-              <input 
-                type="number" 
-                className="price-input" 
-                placeholder="Từ" 
-                value={filters.minPrice}
-                onChange={(e) => setFilters(prev => ({ ...prev, minPrice: e.target.value }))}
-              />
-              <span>-</span>
-              <input 
-                type="number" 
-                className="price-input" 
-                placeholder="Đến" 
-                value={filters.maxPrice}
-                onChange={(e) => setFilters(prev => ({ ...prev, maxPrice: e.target.value }))}
-              />
+              <div className="price-input-group">
+                <input 
+                  type="number" 
+                  className="price-input" 
+                  placeholder="Từ" 
+                  value={filters.minPrice}
+                  onChange={(e) => setFilters(prev => ({ ...prev, minPrice: e.target.value }))}
+                />
+              </div>
+              <span style={{ color: 'var(--gray)' }}>-</span>
+              <div className="price-input-group">
+                <input 
+                  type="number" 
+                  className="price-input" 
+                  placeholder="Đến" 
+                  value={filters.maxPrice}
+                  onChange={(e) => setFilters(prev => ({ ...prev, maxPrice: e.target.value }))}
+                />
+              </div>
             </div>
           </div>
 
-          <button className="btn btn-primary btn-block" style={{ marginTop: '1rem' }} onClick={() => setPagination(prev => ({...prev, page: 1}))}>
+          <button 
+            className="btn btn-primary btn-block" 
+            style={{ 
+              marginTop: '0.5rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem'
+            }} 
+            onClick={() => setPagination(prev => ({...prev, page: 1}))}
+          >
+            <i className="bi bi-check2-circle"></i>
             ÁP DỤNG
           </button>
         </aside>

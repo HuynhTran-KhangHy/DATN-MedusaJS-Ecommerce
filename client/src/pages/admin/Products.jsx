@@ -1,12 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Products = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:3000/api/admin/products', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setProducts(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Lỗi khi lấy danh sách sản phẩm:', error);
+      setLoading(false);
+    }
+  };
+
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case 2: return <span className="admin-badge admin-badge-success">Đang bán</span>;
+      case 1: return <span className="admin-badge admin-badge-warning">Chờ duyệt</span>;
+      case 0: return <span className="admin-badge admin-badge-danger">Từ chối</span>;
+      default: return <span className="admin-badge admin-badge-gray">Nháp</span>;
+    }
+  };
+
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+  };
 
   return (
     <div>
       <div className="admin-page-header">
-        <h1 className="admin-page-title">Sản phẩm</h1>
+        <h1 className="admin-page-title">Quản lý sản phẩm</h1>
         <div className="flex gap-2">
           <button className="admin-btn admin-btn-secondary">
             <i className="bi bi-download"></i>
@@ -35,69 +69,74 @@ const Products = () => {
         </div>
 
         <div className="admin-table-container" style={{margin: 0}}>
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th style={{width: 40}}><input type="checkbox" /></th>
-                <th>Tên sản phẩm</th>
-                <th>Phân loại</th>
-                <th>Tồn kho</th>
-                <th>Giá bán</th>
-                <th>Trạng thái</th>
-                <th style={{textAlign: 'right'}}>Hành động</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>
-                  <div className="flex items-center gap-4">
-                    <div style={{width: 32, height: 32, background: 'var(--admin-border)', borderRadius: 4, overflow: 'hidden'}}>
-                      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&q=80" alt="" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-                    </div>
-                    <span style={{fontWeight: 500}}>Sony WH-1000XM5</span>
-                  </div>
-                </td>
-                <td>Tai nghe</td>
-                <td>45</td>
-                <td>8.490.000 đ</td>
-                <td><span className="admin-badge admin-badge-success">Published</span></td>
-                <td style={{textAlign: 'right'}}>
-                  <button className="btn-icon" style={{width: 32, height: 32, marginLeft: 'auto'}}><i className="bi bi-three-dots"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" /></td>
-                <td>
-                  <div className="flex items-center gap-4">
-                    <div style={{width: 32, height: 32, background: 'var(--admin-border)', borderRadius: 4, overflow: 'hidden'}}>
-                      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&q=80" alt="" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
-                    </div>
-                    <span style={{fontWeight: 500}}>Apple Watch Ultra 2</span>
-                  </div>
-                </td>
-                <td>Smartwatch</td>
-                <td>12</td>
-                <td>19.990.000 đ</td>
-                <td><span className="admin-badge admin-badge-gray">Draft</span></td>
-                <td style={{textAlign: 'right'}}>
-                  <button className="btn-icon" style={{width: 32, height: 32, marginLeft: 'auto'}}><i className="bi bi-three-dots"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {loading ? (
+            <div style={{padding: '2rem', textAlign: 'center'}}>Đang tải dữ liệu...</div>
+          ) : (
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th style={{width: 40}}><input type="checkbox" /></th>
+                  <th>Sản phẩm</th>
+                  <th>Danh mục</th>
+                  <th>Người bán</th>
+                  <th>Giá gốc</th>
+                  <th>Trạng thái</th>
+                  <th style={{textAlign: 'right'}}>Hành động</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.length > 0 ? products.map(product => (
+                  <tr key={product.id}>
+                    <td><input type="checkbox" /></td>
+                    <td>
+                      <div className="flex items-center gap-4">
+                        <div style={{width: 40, height: 40, background: 'var(--admin-border)', borderRadius: 4, overflow: 'hidden', flexShrink: 0}}>
+                          {product.images && product.images.length > 0 ? (
+                            <img src={`http://localhost:3000${product.images[0].image_url}`} alt="" style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+                          ) : (
+                            <div className="flex items-center justify-center h-full text-muted"><i className="bi bi-image"></i></div>
+                          )}
+                        </div>
+                        <div>
+                          <div style={{fontWeight: 600, color: 'var(--admin-text)'}}>{product.name}</div>
+                          <div className="text-xs text-muted">ID: {product.id}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>{product.category?.name || 'Chưa phân loại'}</td>
+                    <td>{product.seller?.name || 'N/A'}</td>
+                    <td style={{fontWeight: 500}}>{formatPrice(product.base_price)}</td>
+                    <td>{getStatusBadge(product.status)}</td>
+                    <td style={{textAlign: 'right'}}>
+                      <div className="flex justify-end gap-1">
+                        <button className="btn-icon" title="Chi tiết"><i className="bi bi-eye"></i></button>
+                        <button className="btn-icon" title="Chỉnh sửa"><i className="bi bi-pencil"></i></button>
+                        <button className="btn-icon text-danger" title="Xóa"><i className="bi bi-trash"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                )) : (
+                  <tr>
+                    <td colSpan="7" style={{textAlign: 'center', padding: '3rem'}}>
+                      <div className="text-muted">Chưa có sản phẩm nào</div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          )}
         </div>
 
         <div className="flex items-center justify-between" style={{padding: '1rem 1.5rem', borderTop: '1px solid var(--admin-border)'}}>
-          <div className="text-sm text-muted">Hiển thị 1 - 10 trong số 45 sản phẩm</div>
+          <div className="text-sm text-muted">Hiển thị {products.length} sản phẩm</div>
           <div className="flex gap-2">
             <button className="admin-btn admin-btn-secondary" disabled>Trước</button>
-            <button className="admin-btn admin-btn-secondary">Sau</button>
+            <button className="admin-btn admin-btn-secondary" disabled>Sau</button>
           </div>
         </div>
       </div>
 
-      {/* Mock Drawer */}
+      {/* Mock Drawer for Adding Product */}
       {isDrawerOpen && (
         <div className="admin-overlay" onClick={() => setDrawerOpen(false)}>
           <div className="admin-drawer" onClick={e => e.stopPropagation()}>
@@ -122,8 +161,7 @@ const Products = () => {
                 <label className="admin-label">Danh mục</label>
                 <select className="admin-input">
                   <option>Chọn danh mục</option>
-                  <option>Tai nghe</option>
-                  <option>Điện thoại</option>
+                  {/* Categories would be mapped here */}
                 </select>
               </div>
             </div>
